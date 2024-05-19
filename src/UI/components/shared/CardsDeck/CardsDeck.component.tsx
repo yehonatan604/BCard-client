@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import useAPI from "../../../../core/hooks/useAPI";
 import { paths } from "../../../../data/constants/paths";
-import { httpMethods } from "../../../../data/constants/httpMethods";
+import { HttpMethods } from "../../../../data/enums/HttpMethods.enum";
 import { Spinner } from "flowbite-react";
-import Flex from "../../wrappers/Flex/Flex.component";
+import Flex from "../Flex/Flex.component";
 import { ICard } from "../../../../data/types/ICard";
 import { useSelector } from "react-redux";
 import { IRootState } from "../../../../data/types/IRootState";
@@ -13,10 +13,12 @@ import Styles from "./CardsDeck.style";
 const CardsDeck = () => {
   const [cards, setCards] = useState<ICard[]>([]);
   const { loading, sendApiRequest } = useAPI();
-  const search = useSelector((state: IRootState) => state.SearchSlice.search) as string;
+  const search = useSelector(
+    (state: IRootState) => state.SearchSlice.search,
+  ) as string;
 
   const getData = useCallback(async () => {
-    const data = await sendApiRequest(paths.cards, httpMethods.GET);
+    const data = await sendApiRequest(paths.cards, HttpMethods.GET);
     const filtered = data.filter((card: ICard) => {
       return (
         card.title.toLowerCase().includes(search.toLowerCase()) ||

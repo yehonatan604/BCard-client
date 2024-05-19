@@ -3,7 +3,7 @@ import axios from "axios";
 import { useCallback, useState } from "react";
 import { toast } from "react-toastify";
 import { axiosMethods } from "../../data/constants/axiosMethods";
-import { httpMethods } from "../../data/constants/httpMethods";
+import { HttpMethods } from "../../data/enums/HttpMethods.enum";
 import { getToken } from "../helpers/Storage.helper";
 
 // *** custom hook for API calls *** //
@@ -13,7 +13,7 @@ const useAPI = () => {
     const [data, setData] = useState<null | Array<object> | unknown[]>(null);
 
     // send API request
-    const sendApiRequest = useCallback(async (url: string, method: httpMethods, data?: object) => {
+    const sendApiRequest = useCallback(async (url: string, method: HttpMethods, data?: object) => {
         // Set axios default headers
         axios.defaults.headers.common['x-auth-token'] = getToken();
 

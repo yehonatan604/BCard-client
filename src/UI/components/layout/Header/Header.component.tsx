@@ -1,3 +1,4 @@
+//** Dependencies **//
 import {
   DarkThemeToggle,
   Navbar,
@@ -5,37 +6,57 @@ import {
   useThemeMode,
 } from "flowbite-react";
 import userImg from "../../../../assets/user.png";
-import Flex from "../../wrappers/Flex/Flex.component";
-import { adminLinks } from "../../../../data/constants/navbarLinks";
+import Flex from "../../shared/Flex/Flex.component";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BiSearch } from "react-icons/bi";
 import { searchActions } from "../../../../core/store/SearchSlice";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Styles from "./Header.style";
 import FormModal from "../../../modals/Form.modal";
 import LoginForm from "../../forms/Login.form";
+import { IRootState } from "../../../../data/types/IRootState";
+import useAuth from "../../../../core/hooks/useAuth";
+import { IAuthState } from "../../../../data/types/IAuthState";
+import { getToken } from "../../../../core/helpers/Storage.helper";
+import { correctRoute } from "../../../../core/helpers/RouteHelper";
 
+//** Header component **//
 const Header = () => {
+  //** State **//
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  //** Redux **//
   const dispatch = useDispatch();
+  const auth = useSelector<IAuthState>(
+    (state: IRootState) => state.AuthSlice,
+  ) as IAuthState;
+
+  //** Hooks **//
   const { mode } = useThemeMode();
+  const { login, logout } = useAuth();
 
-  const getLink = (currLink: string) => {
-    let link = "/";
-    if (currLink === "My Cards") {
-      link += currLink.split(" ").join("");
-    } else {
-      link += currLink;
-    }
-    return link.toLowerCase();
-  };
+  //** Effects **//
+  useEffect(() => {
+    // Auto login
+    const token = getToken();
+    if (token) login(token);
 
+    // Cleanup
+    return () => {
+      dispatch(searchActions.updateSearch(""));
+      setIsLoading(false);
+      setIsLoginOpen(false);
+    };
+  }, [login, dispatch]);
+
+  //** Functions **//
   const search = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch(searchActions.updateSearch(e.target.value));
   };
 
+  //** JSX **//
   return (
     <>
       <Navbar
@@ -63,13 +84,13 @@ const Header = () => {
           <Navbar.Toggle />
           <Navbar.Collapse className="w-[35vw]">
             <Flex className={Styles.navLinksContainer}>
-              {adminLinks.map((link, index) => {
+              {auth.links.map((link: string, index: number) => {
                 return (
                   <Navbar.Link
                     key={index}
                     as={Link}
-                    to={getLink(link)}
-                    href={getLink(link)}
+                    to={correctRoute(link)}
+                    href={correctRoute(link)}
                     className={Styles.navLink}
                   >
                     {link}
@@ -99,13 +120,15 @@ const Header = () => {
             ${mode === "light" ? Styles.authContainerL : Styles.authContainerD}
             `}
             >
-              <Navbar.Link
-                as={"button"}
-                className={Styles.authLink}
-                onClick={() => setIsLoginOpen(true)}
-              >
-                Login
-              </Navbar.Link>
+              {!auth.isLoggedIn && (
+                <Navbar.Link
+                  as={"button"}
+                  className={Styles.authLink}
+                  onClick={() => setIsLoginOpen(true)}
+                >
+                  Login
+                </Navbar.Link>
+              )}
             </Navbar.Brand>
             <Navbar.Brand
               className={`
@@ -113,9 +136,27 @@ const Header = () => {
             ${mode === "light" ? Styles.authContainerL : Styles.authContainerD}
             `}
             >
-              <Navbar.Link as={"button"} className={Styles.authLink}>
-                Register
-              </Navbar.Link>
+              {!auth.isLoggedIn && (
+                <Navbar.Link as={"button"} className={Styles.authLink}>
+                  Register
+                </Navbar.Link>
+              )}
+            </Navbar.Brand>
+            <Navbar.Brand
+              className={`
+            ${Styles.authContainer}
+            ${mode === "light" ? Styles.authContainerL : Styles.authContainerD}
+            `}
+            >
+              {auth.isLoggedIn && (
+                <Navbar.Link
+                  as={"button"}
+                  className={Styles.authLink}
+                  onClick={logout}
+                >
+                  Logout
+                </Navbar.Link>
+              )}
             </Navbar.Brand>
           </Flex>
         </Flex>

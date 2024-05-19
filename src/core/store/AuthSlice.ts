@@ -1,16 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { guestLinks } from "../../data/constants/navbarLinks";
+import { getLinks } from "../helpers/AuthLevel.helper";
+import { AuthLevels } from "../../data/enums/AuthLevels.enum";
+import { IAuthState } from "../../data/types/IAuthState";
 
-export enum AuthLevels {
-    Guest = 0,
-    User = 1,
-    Biz = 2,
-    Admin = 3
-}
-
-const initialState = {
+const initialState: IAuthState = {
     isLoggedIn: false,
     id: '',
-    authLevel: AuthLevels.Guest
+    authLevel: AuthLevels.Guest,
+    links: guestLinks
 }
 
 const AuthSlice = createSlice({
@@ -21,15 +19,18 @@ const AuthSlice = createSlice({
             state.isLoggedIn = true;
             state.id = action.payload.id;
             state.authLevel = action.payload.authLevel;
+            state.links = getLinks(action.payload.authLevel);
         },
         logout: (state) => {
             state.isLoggedIn = false;
             state.id = '';
             state.authLevel = AuthLevels.Guest;
+            state.links = guestLinks;
         },
 
     }
 });
+
 
 export const authActions = AuthSlice.actions;
 export default AuthSlice.reducer;

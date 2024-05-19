@@ -52,7 +52,7 @@ const styles: Record<string, Style> = {
         hover: `bg-opacity-50`,
     }),
     img: new Style({
-        all: `w-[10vw] rounded-full`,
+        all: `w-[10vw] rounded-full md:w-[3vw]`,
         md: `w-[3vw]`
     }),
     authContainer: new Style({

@@ -1,10 +1,10 @@
 import axios from "axios";
-import { httpMethods } from "./httpMethods";
+import { HttpMethods } from "../enums/HttpMethods.enum";
 
 export const axiosMethods = {
-    [`${httpMethods.GET}`]: axios.get,
-    [`${httpMethods.POST}`]: axios.post,
-    [`${httpMethods.PUT}`]: axios.put,
-    [`${httpMethods.DELETE}`]: axios.delete,
-    [`${httpMethods.PATCH}`]: axios.patch
+    [`${HttpMethods.GET}`]: axios.get,
+    [`${HttpMethods.POST}`]: axios.post,
+    [`${HttpMethods.PUT}`]: axios.put,
+    [`${HttpMethods.DELETE}`]: axios.delete,
+    [`${HttpMethods.PATCH}`]: axios.patch
 }
