@@ -1,7 +1,9 @@
-import { ReactNode } from "react";
+//** Dependencies **//
 import { FlexProps } from "./Flex.props";
 
+//** Flex component **//
 const Flex = (props: FlexProps) => {
+  //** Props **//
   const {
     children,
     dir = "row",
@@ -12,19 +14,16 @@ const Flex = (props: FlexProps) => {
     onClick = () => {},
   } = props;
 
-  const content: ReactNode[] | ReactNode = Array.isArray(children)
-    ? [...children]
-    : [children];
+  //** JSX **//
   return (
     <div
       dir={rtl ? "rtl" : "ltr"}
       className={`flex flex-${dir} justify-${justify} items-${items} ${className}`}
       onClick={onClick}
     >
-      {content}
+      {children}
     </div>
   );
 };
 
 export default Flex;
-// Path: tshirt-client/src/UI/components/shared/DivEvenly.component.tsx

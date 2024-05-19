@@ -11,7 +11,7 @@ const Favourites = () => {
       }`}
     >
       <h1 className="p-3 text-center text-4xl">Favourites</h1>
-      <p className="mb-3 text-center">Here you can favourite cards</p>
+      <p className="mb-3 text-center">Here you can find your favourite cards</p>
       <CardsDeck />
     </div>
   );

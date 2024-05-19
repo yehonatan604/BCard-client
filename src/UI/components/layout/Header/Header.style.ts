@@ -3,7 +3,7 @@ import { Style } from "../../../../data/models/Style.model";
 
 const styles: Record<string, Style> = {
     navbar: new Style({
-        all: `fixed w-full z-10`,
+        all: `fixed w-full z-10 border-b-1 border-solid border-gray-200 shadow-lg`,
     }),
     container: new Style({
         all: `flex flex-col m-auto w-full`,

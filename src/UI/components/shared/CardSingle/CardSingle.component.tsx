@@ -1,3 +1,4 @@
+//** Dependencies **//
 import { Card, useThemeMode } from "flowbite-react";
 import {
   PiPhone,
@@ -7,8 +8,6 @@ import {
   PiHeartFill,
 } from "react-icons/pi";
 import { ICard } from "../../../../data/types/ICard";
-import Flex from "../Flex/Flex.component";
-import Styles from "./CardSingle.style";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { IAuthState } from "../../../../data/types/IAuthState";
@@ -17,17 +16,32 @@ import useAPI from "../../../../core/hooks/useAPI";
 import { HttpMethods } from "../../../../data/enums/HttpMethods.enum";
 import { paths } from "../../../../data/constants/paths";
 import { FlexTypes } from "../../../../data/enums/FlexTypes.enum";
+import { FlexDirs } from "../../../../data/enums/FlexDirs.enum";
+import Flex from "../Flex/Flex.component";
+import Styles from "./CardSingle.style";
 
+//** CardSingle component **//
 const CardSingle = ({ card }: { card: ICard }) => {
+  //** State **//
   const [iconsColor, setIconstColor] = useState<"black" | "white">("black");
   const [isLiked, setIsLiked] = useState<boolean>(false);
-  const { sendApiRequest } = useAPI();
 
+  //** Hooks **//
+  const { sendApiRequest } = useAPI();
   const { mode } = useThemeMode();
+
+  //** Redux **//
   const auth = useSelector<IAuthState>(
     (state: IRootState) => state.AuthSlice,
   ) as IAuthState;
 
+  //** Effects **//
+  useEffect(() => {
+    setIsLiked(card.likes.includes(auth.id));
+    setIconstColor(mode === "dark" ? "white" : "black");
+  }, [mode, isLiked, card.likes, auth.id]);
+
+  //** Functions **//
   const handleLike = async () => {
     const res = await sendApiRequest(
       paths.cards + "/" + card._id,
@@ -41,13 +55,21 @@ const CardSingle = ({ card }: { card: ICard }) => {
     }
   };
 
-  useEffect(() => {
-    setIsLiked(card.likes.includes(auth.id));
+  //** Variables **//
+  const heartProps = {
+    size: 30,
+    color: iconsColor,
+    onClick: handleLike,
+    className: Styles.icon,
+  };
 
-    setIconstColor(mode === "dark" ? "white" : "black");
-    return () => {};
-  }, [mode, isLiked, card.likes, auth.id]);
+  const heart = isLiked ? (
+    <PiHeartFill {...heartProps} color="red" />
+  ) : (
+    <PiHeart {...heartProps} />
+  );
 
+  //** JSX **//
   return (
     <Card
       className={Styles.card}
@@ -60,9 +82,9 @@ const CardSingle = ({ card }: { card: ICard }) => {
       )}
     >
       <Flex
-        dir="col"
+        dir={FlexDirs.Column}
         justify={FlexTypes.Start}
-        items="start"
+        items={FlexTypes.Start}
         className={Styles.cardInnerContainer}
       >
         <h5 className={Styles.cardTitle}>{card.title}</h5>
@@ -75,22 +97,7 @@ const CardSingle = ({ card }: { card: ICard }) => {
           justify={auth.authLevel > 1 ? FlexTypes.Between : FlexTypes.Center}
         >
           <PiPhone size={30} color={iconsColor} className={Styles.icon} />
-          {auth.isLoggedIn &&
-            (isLiked ? (
-              <PiHeartFill
-                size={30}
-                color="red"
-                onClick={handleLike}
-                className={Styles.icon}
-              />
-            ) : (
-              <PiHeart
-                size={30}
-                color={iconsColor}
-                onClick={handleLike}
-                className={Styles.icon}
-              />
-            ))}
+          {auth.isLoggedIn && heart}
           {auth.authLevel > 1 && (
             <>
               <PiPencil size={30} color={iconsColor} className={Styles.icon} />
