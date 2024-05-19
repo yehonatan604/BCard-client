@@ -5,4 +5,3 @@ export interface IStyle {
     hover?: string,
     transition?: string
 }
-// Path: tshirt-client/src/Data/types/IStyle.interface.ts

@@ -1,18 +1,16 @@
+//** Dependencies **//
 import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
-import Flex from "../components/shared/Flex/Flex.component";
-import { FlexDirs } from "../../data/enums/FlexDirs.enum";
-import { AuthLevels } from "../../data/enums/AuthLevels.enum";
+import Flex from "../../components/shared/Flex/Flex.component";
+import { FlexDirs } from "../../../data/enums/FlexDirs.enum";
+import { RouteGuardProps } from "./RouteGuard.props";
 
-const RouteGuard = ({
-  children,
-  authLevel,
-  minimumLevel,
-}: {
-  children: React.ReactNode;
-  authLevel: AuthLevels;
-  minimumLevel: AuthLevels;
-}) => {
+//** RouteGuard component **//
+const RouteGuard = (props: RouteGuardProps) => {
+  //** Props **//
+  const { children, authLevel, minimumLevel } = props;
+
+  //** JSX **//
   const content = (
     <Flex dir={FlexDirs.Column}>
       <div className="flex h-[50vh] w-full flex-col items-center font-bold text-white">

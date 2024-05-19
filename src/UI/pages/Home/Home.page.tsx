@@ -1,9 +1,13 @@
+//** Dependencies **//
 import { useThemeMode } from "flowbite-react";
 import CardsDeck from "../../components/shared/CardsDeck/CardsDeck.component";
 
+//** Home page **//
 const Home = () => {
+  //** Hooks **//
   const { mode } = useThemeMode();
 
+  //** JSX **//
   return (
     <div
       className={`mt-[10vh] max-md:mt-[28vh] ${

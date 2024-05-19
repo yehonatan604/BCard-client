@@ -1,3 +1,4 @@
+//** Dependencies **//
 import { Button, FloatingLabel } from "flowbite-react";
 import useAuth from "../../../core/hooks/useAuth";
 import { LoginFormProps } from "./LoginForm.props";
@@ -5,8 +6,12 @@ import useForm from "../../../core/hooks/useForm";
 import { schemas } from "../../../data/constants/schemas";
 import Joi from "joi";
 
+//** LoginForm component **//
 const LoginForm = (props: LoginFormProps) => {
+  //** Props **//
   const { setIsLoading, setIsOpen } = props;
+
+  //** Hooks **//
   const { tryLogin } = useAuth();
   const { form, errors, updateForm } = useForm(
     {
@@ -16,6 +21,7 @@ const LoginForm = (props: LoginFormProps) => {
     schemas.login as unknown as Joi.ObjectSchema,
   );
 
+  //** Functions **//
   const onLogin = async () => {
     setIsLoading(true);
     await tryLogin(form).then(() => {
@@ -24,6 +30,7 @@ const LoginForm = (props: LoginFormProps) => {
     });
   };
 
+  //** JSX **//
   return (
     <form>
       <FloatingLabel
