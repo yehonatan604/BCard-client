@@ -15,7 +15,7 @@ const Error = () => {
 
   //** JSX **//
   return (
-    <Flex dir={FlexDirs.Column} className="h-[100vh]">
+    <Flex dir={FlexDirs.Column} className="h-[80vh]">
       <h1 className="overflow-hidden text-5xl">404</h1>
       <img src={oopsImg} alt="404" className="m-10 w-1/4" />
       <Button gradientMonochrome={"info"} onClick={goHome}>

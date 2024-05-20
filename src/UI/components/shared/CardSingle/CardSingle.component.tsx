@@ -21,11 +21,15 @@ import Flex from "../Flex/Flex.component";
 import Styles from "./CardSingle.style";
 
 //** CardSingle component **//
-const CardSingle = ({ card }: { card: ICard }) => {
+const CardSingle = ({
+  card,
+  getData,
+}: {
+  card: ICard;
+  getData: () => void;
+}) => {
   //** State **//
   const [iconsColor, setIconstColor] = useState<"black" | "white">("black");
-  const [isLiked, setIsLiked] = useState<boolean>(false);
-
   //** Hooks **//
   const { sendApiRequest } = useAPI();
   const { mode } = useThemeMode();
@@ -37,9 +41,8 @@ const CardSingle = ({ card }: { card: ICard }) => {
 
   //** Effects **//
   useEffect(() => {
-    setIsLiked(card.likes.includes(auth.id));
     setIconstColor(mode === "dark" ? "white" : "black");
-  }, [mode, isLiked, card.likes, auth.id]);
+  }, [mode, card, auth]);
 
   //** Functions **//
   const handleLike = async () => {
@@ -48,8 +51,8 @@ const CardSingle = ({ card }: { card: ICard }) => {
       HttpMethods.PATCH,
     );
     if (res) {
-      setIsLiked((val) => !val);
-      if (isLiked) {
+      getData();
+      if (card.likes.includes(auth.id)) {
         card.likes = card.likes.filter((id) => id !== auth.id);
       } else card.likes.push(auth.id);
     }
@@ -63,7 +66,7 @@ const CardSingle = ({ card }: { card: ICard }) => {
     className: Styles.icon,
   };
 
-  const heart = isLiked ? (
+  const heart = card.likes.includes(auth.id) ? (
     <PiHeartFill {...heartProps} color="red" />
   ) : (
     <PiHeart {...heartProps} />

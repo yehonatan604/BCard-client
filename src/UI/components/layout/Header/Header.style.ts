@@ -6,8 +6,8 @@ const styles: Record<string, Style> = {
         all: `fixed w-full z-10 border-b-1 border-solid border-gray-200 shadow-lg`,
     }),
     container: new Style({
+        md: 'flex-row',
         all: `flex flex-col m-auto w-full`,
-        md: 'flex-row'
     }),
     navbarL: new Style({
         all: `bg-blue-500`
@@ -19,10 +19,10 @@ const styles: Record<string, Style> = {
         all: `w-full mb-2 flex justify-center md:w-[10vw]`,
     }),
     bcard: new Style({
-        all: `font-semibold text-2xl`,
-        md: `mr-5`,
         maxMd: `m-auto my-3`,
-        hover: `font-bold`
+        md: `mr-5`,
+        hover: `font-bold`,
+        all: `font-semibold text-2xl`,
     }),
     bcardL: new Style({
         all: `text-slate-800`
@@ -52,8 +52,7 @@ const styles: Record<string, Style> = {
         hover: `bg-opacity-50`,
     }),
     img: new Style({
-        all: `w-[10vw] rounded-full md:w-[3vw]`,
-        md: `w-[3vw]`
+        all: `rounded-full m-auto w-[10vw] md:w-[3vw]`,
     }),
     authContainer: new Style({
         all: `list-none`,

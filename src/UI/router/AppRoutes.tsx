@@ -8,6 +8,8 @@ import { IAuthState } from "../../data/types/IAuthState";
 import { useSelector } from "react-redux";
 import { IRootState } from "../../data/types/IRootState";
 import Error from "../pages/Error/Error.page";
+import About from "../pages/About/About.page";
+import MyCards from "../pages/MyCards/MyCards.page";
 
 //** AppRoutes component **//
 const AppRoutes = () => {
@@ -20,11 +22,20 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
       <Route
         path="/favourites"
         element={
           <RouteGuard authLevel={auth.authLevel} minimumLevel={AuthLevels.User}>
             <Favourites />
+          </RouteGuard>
+        }
+      />
+      <Route
+        path="/mycards"
+        element={
+          <RouteGuard authLevel={auth.authLevel} minimumLevel={AuthLevels.User}>
+            <MyCards />
           </RouteGuard>
         }
       />
