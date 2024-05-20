@@ -10,5 +10,3 @@ export const paths = {
     login: `${users}/login`,
     register: `${users}/register`,
 };
-
-// path: src/Core/store/Auth.slice.ts

@@ -10,5 +10,3 @@ const bizLinks: string[] = [...userLinks, myCards];
 const adminLinks: string[] = [...bizLinks, crm];
 
 export { guestLinks, userLinks, bizLinks, adminLinks };
-
-// path: src/Data/constants/navbarLinks.ts

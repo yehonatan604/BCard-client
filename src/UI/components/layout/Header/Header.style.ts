@@ -16,11 +16,10 @@ const styles: Record<string, Style> = {
         all: `bg-dark`
     }),
     bcardContainer: new Style({
-        all: `w-full mb-2 flex justify-center md:w-[10vw]`,
+        all: `mb-2 flex justify-center w-[fit-content] md:mr-10`,
     }),
     bcard: new Style({
         maxMd: `m-auto my-3`,
-        md: `mr-5`,
         hover: `font-bold`,
         all: `font-semibold text-2xl`,
     }),
@@ -35,16 +34,17 @@ const styles: Record<string, Style> = {
     },
     navLinksContainer: {
         all: `flex gap-10 flex-wrap`,
+        md: `mr-10`
     },
     navLink: new Style({
         all: `p-1`,
         hover: `text-black scale-105`,
     }),
     rightContainer: new Style({
-        all: `gap-5`,
+        all: `md:gap-10 md:ml-10`,
     }),
     themeToggleContainer: new Style({
-        all: `flex justify-center items-center`,
+        all: `flex justify-center items-center px-2`,
         md: `w-[3.5vw] h-[12vh]`
     }),
     themeToggle: new Style({
@@ -52,7 +52,8 @@ const styles: Record<string, Style> = {
         hover: `bg-opacity-50`,
     }),
     img: new Style({
-        all: `rounded-full m-auto w-[10vw] md:w-[3vw]`,
+        all: `rounded-full m-auto w-[15vw] md:w-[4vw] px-2`,
+        md: `w-[4vw]`,
     }),
     authContainer: new Style({
         all: `list-none`,
@@ -64,7 +65,7 @@ const styles: Record<string, Style> = {
         all: `text-slate-400`,
     }),
     authLink: new Style({
-        all: `p-1 w-[fit-content] font-medium border-0`,
+        all: `font-medium border-0`,
         hover: 'text-black'
     }),
 }

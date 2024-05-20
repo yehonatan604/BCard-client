@@ -114,6 +114,22 @@ const Header = () => {
               <img src={userImg} alt="user's image" className={Styles.img} />
             </Navbar.Brand>
 
+            {auth.isLoggedIn && (
+              <Navbar.Brand
+                className={`
+            ${Styles.authContainer}
+            ${mode === "light" ? Styles.authContainerL : Styles.authContainerD}
+            `}
+              >
+                <Navbar.Link
+                  as={"button"}
+                  className={Styles.authLink}
+                  onClick={logout}
+                >
+                  Logout
+                </Navbar.Link>
+              </Navbar.Brand>
+            )}
             <Navbar.Brand
               className={`
             ${Styles.authContainer}
@@ -139,22 +155,6 @@ const Header = () => {
               {!auth.isLoggedIn && (
                 <Navbar.Link as={"button"} className={Styles.authLink}>
                   Register
-                </Navbar.Link>
-              )}
-            </Navbar.Brand>
-            <Navbar.Brand
-              className={`
-            ${Styles.authContainer}
-            ${mode === "light" ? Styles.authContainerL : Styles.authContainerD}
-            `}
-            >
-              {auth.isLoggedIn && (
-                <Navbar.Link
-                  as={"button"}
-                  className={Styles.authLink}
-                  onClick={logout}
-                >
-                  Logout
                 </Navbar.Link>
               )}
             </Navbar.Brand>

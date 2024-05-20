@@ -34,7 +34,7 @@ const AppRoutes = () => {
       <Route
         path="/mycards"
         element={
-          <RouteGuard authLevel={auth.authLevel} minimumLevel={AuthLevels.User}>
+          <RouteGuard authLevel={auth.authLevel} minimumLevel={AuthLevels.Biz}>
             <MyCards />
           </RouteGuard>
         }
