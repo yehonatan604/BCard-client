@@ -21,6 +21,7 @@ import noPic from '../../../../assets/noPic.png';
 import Flex from "../Flex/Flex.component";
 import Styles from "./CardSingle.style";
 import useCards from "../../../../core/hooks/useCards";
+import { useNavigate } from "react-router-dom";
 
 export type CardSingleProps = {
   card: ICard;
@@ -36,6 +37,7 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
   const { sendApiRequest } = useAPI();
   const { mode } = useThemeMode();
   const {deleteCard} = useCards(cardsDeckRef!);
+  const nav = useNavigate();
 
   //** Redux **//
   const auth = useSelector<IAuthState>(
@@ -65,6 +67,10 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
     await deleteCard(card._id).then(() => getData());
   };
 
+  const navToBiz = () => {
+    nav(`/biz/${card._id}`);
+  };
+
   //** Variables **//
   const heartProps = {
     size: 30,
@@ -92,6 +98,7 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
             e.currentTarget.src = noPic;
             e.currentTarget.onerror = null;
           }}
+          onClick={navToBiz}
         />
       )}
     >

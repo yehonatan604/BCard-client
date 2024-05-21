@@ -24,7 +24,7 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
-      <Route path="/biz/:bizNum" element={<Biz />} />
+      <Route path="/biz/:id" element={<Biz />} />
       <Route
         path="/favourites"
         element={

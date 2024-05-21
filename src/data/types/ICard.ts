@@ -18,7 +18,7 @@ export type ICard = {
         houseNumber: number;
         zip: number;
     }
-    bizNumber: string;
+    bizNumber: number;
     likes: string[];
     user_id: string;
     createdAt: Date;

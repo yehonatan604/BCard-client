@@ -11,11 +11,11 @@ import { normalizeCard } from "../helpers/formNormalize.helper";
 import { toast } from "react-toastify";
 import { AuthLevels } from "../../data/enums/AuthLevels.enum";
 
-const useCards = (cardsDeck: MutableRefObject<ICard[]>, reRender?:boolean) => {
+const useCards = (cardsDeck?: MutableRefObject<ICard[]>, reRender?:boolean) => {
     const [cards, setCards] = useState<ICard[]>([]);
     const { sendApiRequest, loading } = useAPI();
     const currPage = useLocation().pathname.split("/")[1];
-    const getCardsDeck = useMemo(() => cardsDeck, [cardsDeck.current]);
+    const getCardsDeck = useMemo(() => cardsDeck, [cardsDeck? cardsDeck.current : []]);
     
     //** Redux **//
     const search = useSelector(
@@ -47,7 +47,7 @@ const useCards = (cardsDeck: MutableRefObject<ICard[]>, reRender?:boolean) => {
 
     const loadCards = useCallback(async () => {
         await getData();
-        cardsDeck.current = cards;
+        cardsDeck!.current = cards;
     }, [getData, getCardsDeck]);
 
     //** Functions **//
@@ -80,7 +80,7 @@ const useCards = (cardsDeck: MutableRefObject<ICard[]>, reRender?:boolean) => {
         if (!reRender) return ;
         (async ()=>{loadCards();})();
         return () => setCards([]);
-    }, [loadCards, getCardsDeck.current]);
+    }, [loadCards, getCardsDeck!.current]);
 
     return { cards, addCard, canShowPlusIcon, loadCards, loading, getData, deleteCard };
 }
