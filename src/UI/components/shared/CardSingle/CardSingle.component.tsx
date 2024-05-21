@@ -8,7 +8,7 @@ import {
   PiHeartFill,
 } from "react-icons/pi";
 import { ICard } from "../../../../data/types/ICard";
-import { useEffect, useState } from "react";
+import { MutableRefObject, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { IAuthState } from "../../../../data/types/IAuthState";
 import { IRootState } from "../../../../data/types/IRootState";
@@ -20,19 +20,22 @@ import { FlexDirs } from "../../../../data/enums/FlexDirs.enum";
 import noPic from '../../../../assets/noPic.png';
 import Flex from "../Flex/Flex.component";
 import Styles from "./CardSingle.style";
+import useCards from "../../../../core/hooks/useCards";
 
 export type CardSingleProps = {
   card: ICard;
   getData: () => void;
+  cardsDeckRef: MutableRefObject<ICard[]>;
 };
 
 //** CardSingle component **//
-const CardSingle = ({ card, getData }: CardSingleProps) => {
+const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
   //** State **//
   const [iconsColor, setIconstColor] = useState<"black" | "white">("black");
   //** Hooks **//
   const { sendApiRequest } = useAPI();
   const { mode } = useThemeMode();
+  const {deleteCard, loadCards, getData: reload} = useCards(cardsDeckRef!);
 
   //** Redux **//
   const auth = useSelector<IAuthState>(
@@ -56,6 +59,13 @@ const CardSingle = ({ card, getData }: CardSingleProps) => {
         card.likes = card.likes.filter((id) => id !== auth.id);
       } else card.likes.push(auth.id);
     }
+  };
+
+  const handleDelete = async () => {
+    await deleteCard(card._id);
+    await reload().then(async () => {
+    await loadCards();
+    });
   };
 
   //** Variables **//
@@ -108,7 +118,7 @@ const CardSingle = ({ card, getData }: CardSingleProps) => {
           {auth.authLevel > 1 && auth.id === card.user_id && (
             <>
               <PiPencil size={30} color={iconsColor} className={Styles.icon} />
-              <PiTrash size={30} color={iconsColor} className={Styles.icon} />
+              <PiTrash size={30} color={iconsColor} className={Styles.icon} onClick={handleDelete}/>
             </>
           )}
         </Flex>

@@ -5,48 +5,34 @@ import { schemas } from "../../../../data/constants/schemas";
 import Joi from "joi";
 import Flex from "../../shared/Flex/Flex.component";
 import { FlexTypes } from "../../../../data/enums/FlexTypes.enum";
-import { normalizeCard } from "../../../../core/helpers/formNormalize.helper";
 import { addCardInitialForm } from "../../../../data/constants/initialForms";
 import { useEffect, useRef } from "react";
 import { addCardFormInputs } from "../../../../data/constants/formInputs";
 import { FlexDirs } from "../../../../data/enums/FlexDirs.enum";
-import useAPI from "../../../../core/hooks/useAPI";
-import { paths } from "../../../../data/constants/paths";
-import { HttpMethods } from "../../../../data/enums/HttpMethods.enum";
-import { toast } from "react-toastify";
+import { AddCardFormProps } from "./AddCard.props";
+import useCards from "../../../../core/hooks/useCards";
+import { ICard } from "../../../../data/types/ICard";
 
-export type AddCardFormProps = {
-    setIsLoading: (value: boolean) => void;
-    setIsOpen: (value: boolean) => void;
-    loadCards: () => Promise<void>;
-}
 //** LoginForm component **//
 const AddCardForm = (props: AddCardFormProps) => {
   //** Props **//
-  const { setIsLoading, setIsOpen, loadCards } = props;
+  const { setIsLoading, setIsOpen, cardsDeckRef } = props;
 
   //** Hooks **//
-  const { sendApiRequest, loading } = useAPI();
+  const containerRef = useRef<HTMLDivElement>(null);
   const { form, errors, updateForm, chechErrors } = useForm(
     addCardInitialForm,
     schemas.addCard as unknown as Joi.ObjectSchema,
   );
-  const containerRef = useRef<HTMLDivElement>(null);
+  const {addCard, loadCards, loading} = useCards(cardsDeckRef!);
 
   //** Functions **//
   const onAddCard = async () => {
     setIsLoading(true);
-    const res = await sendApiRequest(
-      paths.cards,
-      HttpMethods.POST,
-      normalizeCard(form),
-    );
-    if (res) {
+    await addCard(form as ICard).then(async () => {
       setIsOpen(false);
-      toast.success("Card added successfully");
-        setIsLoading(false);
-        await loadCards();
-    }
+      await loadCards();
+    });
     setIsLoading(false);
   };
 

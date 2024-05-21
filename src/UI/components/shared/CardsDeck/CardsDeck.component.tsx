@@ -1,22 +1,15 @@
 //** Dependencies **//
-import { useState, useEffect, useCallback, useRef } from "react";
-import useAPI from "../../../../core/hooks/useAPI";
-import { paths } from "../../../../data/constants/paths";
-import { HttpMethods } from "../../../../data/enums/HttpMethods.enum";
+import { useRef, useState } from "react";
 import { Spinner, useThemeMode } from "flowbite-react";
 import Flex from "../Flex/Flex.component";
 import { ICard } from "../../../../data/types/ICard";
-import { useSelector } from "react-redux";
-import { IRootState } from "../../../../data/types/IRootState";
 import CardSingle from "../CardSingle/CardSingle.component";
 import Styles from "./CardsDeck.style";
-import { IAuthState } from "../../../../data/types/IAuthState";
-import { useLocation } from "react-router-dom";
 import { CardsDeckProps } from "./CardsDeck.props";
 import { PiPlusCircleFill } from "react-icons/pi";
-import { AuthLevels } from "../../../../data/enums/AuthLevels.enum";
 import FormModal from "../../../modals/Form.modal";
 import AddCardForm from "../../forms/AddCard/AddCard.form";
+import useCards from "../../../../core/hooks/useCards";
 
 //** CardsDeck component **//
 const CardsDeck = (props: CardsDeckProps) => {
@@ -24,59 +17,17 @@ const CardsDeck = (props: CardsDeckProps) => {
   const { title, subtitle } = props;
 
   //** State **//
-  const [cards, setCards] = useState<ICard[]>([]);
   const [showAddCard, setShowAddCard] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  
   //** Hooks **//
-  const { loading, sendApiRequest } = useAPI();
-  const currPage = useLocation().pathname.split("/")[1];
-  let cardsDeck = useRef<ICard[]>(cards);
+  let cardsDeck = useRef<ICard[]>([]);
   const { mode } = useThemeMode();
+  const { cards, loading, canShowPlusIcon, getData, loadCards } = useCards(cardsDeck);
 
-  //** Redux **//
-  const search = useSelector(
-    (state: IRootState) => state.SearchSlice.search,
-  ) as string;
-  const auth = useSelector<IAuthState>(
-    (state: IRootState) => state.AuthSlice,
-  ) as IAuthState;
 
-  //** Callbacks **//
-  const getData = useCallback(async () => {
-    const data = await sendApiRequest(paths.cards, HttpMethods.GET);
-
-    let filtered = data.filter(
-      (card: ICard) =>
-        card.title.toLowerCase().includes(search.toLowerCase()) ||
-        card.subtitle.toLowerCase().includes(search.toLowerCase()),
-    );
-    if (currPage === "favourites" && filtered.length > 0) {
-      filtered = filtered.filter((card: ICard) => card.likes.includes(auth.id));
-    }
-    if (currPage === "mycards" && filtered.length > 0) {
-      filtered = filtered.filter((card: ICard) => card.user_id === auth.id);
-    }
-
-    data && setCards(filtered);
-  }, [sendApiRequest, search]);
-
-  // ** Callbacks **//
-  const loadCards = useCallback(async () => {
-    await getData();
-    cardsDeck.current = cards;
-  }, [getData, cardsDeck]);
-
-  //** Effects **//
-  useEffect(() => {
-    loadCards();
-    return () => setCards([]);
-  }, [loadCards]);
-
-  //** Variables **//
-  const canShowPlusIcon =
-    currPage !== "favourites" && auth.authLevel >= AuthLevels.Biz;
-
+  console.log(cards);
+  
   //** JSX **//
   return (
     <>
@@ -95,7 +46,7 @@ const CardsDeck = (props: CardsDeckProps) => {
       <Flex className={Styles.container}>
         {cards &&
           cards.map((card: ICard, index) => {
-            return <CardSingle key={index} card={card} getData={getData} />;
+            return <CardSingle cardsDeckRef={cardsDeck} key={index} card={card} getData={getData} />;
           })}
         {cards.length === 0 && !loading && (
           <h1 className={Styles.noCards}>No cards were found!!!</h1>
@@ -117,6 +68,7 @@ const CardsDeck = (props: CardsDeckProps) => {
           loadCards={loadCards}
           setIsLoading={setIsLoading}
           setIsOpen={setShowAddCard}
+          cardsDeckRef={cardsDeck}
         />
       </FormModal>
     </>
