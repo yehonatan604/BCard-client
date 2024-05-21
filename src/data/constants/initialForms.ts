@@ -19,3 +19,19 @@ export const loginInitialForm = {
     email: "",
     password: "",
 };
+
+export const addCardInitialForm = {
+    title: "",
+    subtitle: "",
+    description: "",
+    phone: "",
+    email: "",
+    web: "",
+    imageUrl: "",
+    imageAlt: "",
+    city: "",
+    country: "",
+    zip: null,
+    houseNumber: null,
+    state: "",
+};

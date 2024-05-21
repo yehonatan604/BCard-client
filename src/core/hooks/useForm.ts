@@ -26,7 +26,7 @@ const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) =>
 
     }
 
-    const updateForm = (e: ChangeEvent<HTMLInputElement>) => {
+    const updateForm = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const id: string = e.target.id;
         const value = e.target.value;
 
@@ -40,7 +40,7 @@ const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) =>
                 { [id]: value },
                 schema[id as keyof typeof schema] as Joi.ObjectSchema,
             );
-
+            
             if (validation.error) {
                 setErrors((old) => ({
                     ...old,
@@ -52,6 +52,20 @@ const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) =>
                     [e.target.id]: "",
                 }));
             }
+            
+            const passwordMatch = form.password === form.confirmPassword;
+            if (id === "confirmPassword" && !passwordMatch) {
+                setErrors((old) => ({
+                    ...old,
+                    confirmPassword: "Passwords do not match",
+                }));
+            } else if (id === "confirmPassword" && passwordMatch) {
+                setErrors((old) => ({
+                    ...old,
+                    confirmPassword: "",
+                }));
+            }
+
         });
     };
 
