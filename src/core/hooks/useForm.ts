@@ -1,15 +1,35 @@
+//** Dependencies **//
 import { useState } from "react";
 import { validate } from "../helpers/Validation.helper";
 import { ChangeEvent } from "react";
 import Joi from "joi";
 
-const useForm = (initialState: Record<string, string>, schema: Joi.ObjectSchema) => {
+//** useForm hook **//
+const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) => {
+    //** State **//
     const [errors, setErrors] = useState({ ...initialState });
     const [form, setForm] = useState({ ...initialState });
+
+    //** Functions **//
+    const chechErrors = () => {
+        let res;
+        for (const key in errors) {
+
+            if (errors[key] !== "") {
+                res = true;
+                break;
+            } else {
+                res = false;
+            }
+        }
+        return res;
+
+    }
 
     const updateForm = (e: ChangeEvent<HTMLInputElement>) => {
         const id: string = e.target.id;
         const value = e.target.value;
+
         Promise.resolve(
             setForm({
                 ...form,
@@ -35,7 +55,8 @@ const useForm = (initialState: Record<string, string>, schema: Joi.ObjectSchema)
         });
     };
 
-    return { form, errors, updateForm };
+
+    return { form, errors, updateForm, chechErrors };
 };
 
 export default useForm;

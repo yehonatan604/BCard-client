@@ -7,7 +7,10 @@ const normalizeStyle = (style: IStyle): string => {
     const maxMd = style.maxMd && style.maxMd?.split(' ').map((item) => ' max-md:' + item).join(' ');
     const hover = style.hover && style.hover?.split(' ').map((item) => 'hover:' + item).join(' ');
     const transition = style.transition && style.transition?.split(' ').map((item) => 'transition:' + item).join(' ');
-    return `${style.all} ${md!} ${maxMd!} ${hover!} ${transition!}`;
+    const light = style.light && style.light?.split(' ').map((item) => 'light:' + item).join(' ');
+    const dark = style.dark && style.dark?.split(' ').map((item) => 'dark:' + item).join(' ');
+    const focus = style.focus && style.focus?.split(' ').map((item) => 'focus:' + item).join(' ');
+    return `${style.all} ${md!} ${maxMd!} ${hover!} ${transition!} ${light!} ${dark!} ${focus!}`;
 }
 
 // this function takes a styles object and returns a normalized styles object

@@ -14,17 +14,19 @@ import { searchActions } from "../../../../core/store/SearchSlice";
 import { ChangeEvent, useEffect, useState } from "react";
 import Styles from "./Header.style";
 import FormModal from "../../../modals/Form.modal";
-import LoginForm from "../../forms/Login.form";
+import LoginForm from "../../forms/Login/Login.form";
 import { IRootState } from "../../../../data/types/IRootState";
 import useAuth from "../../../../core/hooks/useAuth";
 import { IAuthState } from "../../../../data/types/IAuthState";
 import { getToken } from "../../../../core/helpers/Storage.helper";
-import { correctRoute } from "../../../../core/helpers/RouteHelper";
+import { correctRoute } from "../../../../core/helpers/Route.helper";
+import RegisterForm from "../../forms/Register/Register.form";
 
 //** Header component **//
 const Header = () => {
   //** State **//
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   //** Redux **//
@@ -153,7 +155,11 @@ const Header = () => {
             `}
             >
               {!auth.isLoggedIn && (
-                <Navbar.Link as={"button"} className={Styles.authLink}>
+                <Navbar.Link
+                  as={"button"}
+                  className={Styles.authLink}
+                  onClick={() => setIsRegisterOpen(true)}
+                >
                   Register
                 </Navbar.Link>
               )}
@@ -168,6 +174,17 @@ const Header = () => {
         isLoading={isLoading}
       >
         <LoginForm setIsLoading={setIsLoading} setIsOpen={setIsLoginOpen} />
+      </FormModal>
+      <FormModal
+        formName="Register"
+        isOpen={isRegisterOpen}
+        setIsOpen={setIsRegisterOpen}
+        isLoading={isLoading}
+      >
+        <RegisterForm
+          setIsLoading={setIsLoading}
+          setIsOpen={setIsRegisterOpen}
+        />
       </FormModal>
     </>
   );

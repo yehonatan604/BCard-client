@@ -3,5 +3,8 @@ export interface IStyle {
     md?: string,
     maxMd?: string,
     hover?: string,
-    transition?: string
+    transition?: string,
+    dark?: string,
+    light?: string,
+    focus?: string
 }

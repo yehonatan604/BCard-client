@@ -1,6 +1,8 @@
 import { normalized } from "../../../../core/helpers/Style.Helper";
 import { Style } from "../../../../data/models/Style.model";
 
+
+
 const styles: Record<string, Style> = {
     navbar: new Style({
         all: `fixed w-full z-10 border-b-1 border-solid border-gray-200 shadow-lg`,
@@ -24,7 +26,7 @@ const styles: Record<string, Style> = {
         all: `font-semibold text-2xl`,
     }),
     bcardL: new Style({
-        all: `text-slate-800`
+        all: `text-slate-700`
     }),
     bcardD: new Style({
         all: `text-white`
@@ -37,8 +39,7 @@ const styles: Record<string, Style> = {
         md: `mr-10`
     },
     navLink: new Style({
-        all: `p-1`,
-        hover: `text-black scale-105`,
+        all: `p-1 link`,
     }),
     rightContainer: new Style({
         all: `md:gap-10 md:ml-10`,
@@ -48,8 +49,9 @@ const styles: Record<string, Style> = {
         md: `w-[3.5vw] h-[12vh]`
     }),
     themeToggle: new Style({
-        all: `p-2 rounded-full`,
+        all: `p-2 rounded-full focus:ring-0 text-slate-600`,
         hover: `bg-opacity-50`,
+        focus: `ring-0`,
     }),
     img: new Style({
         all: `rounded-full m-auto w-[15vw] md:w-[4vw] px-2`,
@@ -59,13 +61,13 @@ const styles: Record<string, Style> = {
         all: `list-none`,
     }),
     authContainerL: new Style({
-        all: `text-dark`,
+        all: `link`,
     }),
     authContainerD: new Style({
         all: `text-slate-400`,
     }),
     authLink: new Style({
-        all: `font-medium border-0`,
+        all: `font-medium border-0 link`,
         hover: 'text-black'
     }),
 }

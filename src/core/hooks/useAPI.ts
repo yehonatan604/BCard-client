@@ -24,7 +24,6 @@ const useAPI = () => {
             return result?.data;
         } catch (err) {
             setError(err as Error);
-            console.log(err); // ******************************** remember to remove this line
             toast(`${`Error!!!`}\n\n${err}`, { type: "error" });
         } finally {
             setLoading(false);

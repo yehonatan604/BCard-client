@@ -1,6 +1,6 @@
 export const getToken = () => {
     const token = localStorage.getItem('token');
-    if (!token) {
+    if (!token || token === 'undefined') {
         removeToken();
         return '';
     }

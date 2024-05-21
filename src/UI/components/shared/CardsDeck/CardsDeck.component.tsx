@@ -66,10 +66,10 @@ const CardsDeck = (props: CardsDeckProps) => {
   //** JSX **//
   return (
     <>
-      <>
-        <h1 className="p-3 text-center text-4xl">{title}</h1>
-        <p className="mb-3 text-center">{subtitle} </p>
-      </>
+      <div className={Styles.titleContainer}>
+        <h1 className={Styles.title}>{title}</h1>
+        <p className={Styles.subtitle}>{subtitle} </p>
+      </div>
       <Flex className={Styles.container}>
         {cards &&
           cards.map((card: ICard, index) => {
@@ -83,7 +83,7 @@ const CardsDeck = (props: CardsDeckProps) => {
             <Spinner color="purple" aria-label="Loading spinner" />
           </div>
         )}
-        {cards.length < 4 && <div className="h-[50vh] w-full"></div>}
+        {cards.length < 4 && <div className={Styles.emptyDiv}></div>}
       </Flex>
     </>
   );

@@ -8,5 +8,4 @@ export const paths = {
     users: users,
 
     login: `${users}/login`,
-    register: `${users}/register`,
 };

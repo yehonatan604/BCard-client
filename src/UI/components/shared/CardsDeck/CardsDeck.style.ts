@@ -8,6 +8,20 @@ const styles: Record<string, Style> = {
     spinnerDiv: new Style({
         all: `h-[10vh]`,
     }),
+    titleContainer: new Style({
+        dark: `text-white`,
+        all: `text-center`,
+    }),
+    title: new Style({
+        all: `p-3 text-4xl`,
+    }),
+    subtitle: new Style({
+        all: `mb-3`,
+    }),
+    emptyDiv: new Style({
+        all: `h-[50vh] w-full`,
+    }),
+
 }
 
 export default normalized(styles);

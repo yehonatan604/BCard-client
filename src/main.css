@@ -13,3 +13,7 @@
 .elip {
   overflow-y: auto;
 }
+
+.link {
+  color: dark-gray !important;
+}

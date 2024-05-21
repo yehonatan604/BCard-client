@@ -1,25 +1,23 @@
 //** Dependencies **//
-import { Flowbite, useThemeMode } from "flowbite-react";
+import { Flowbite } from "flowbite-react";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import FooterC from "./Footer/Footer";
 import Header from "./Header/Header.component";
 import AppRoutes from "../../router/AppRoutes";
+import Styles from "./Layout.style";
 import "react-toastify/dist/ReactToastify.css";
 
 //** Layout component **//
 const Layout = () => {
-  const { mode } = useThemeMode();
+  //** Hooks **//
+
   //** JSX **//
   return (
     <Flowbite>
       <BrowserRouter>
         <Header />
-        <div
-          className={`mt-[11vh] max-md:mt-[28vh] ${
-            mode === "light" ? "bg-slate-200" : "bg-slate-700"
-          }`}
-        >
+        <div className={`${Styles.container}`}>
           <AppRoutes />
         </div>
         <FooterC />
