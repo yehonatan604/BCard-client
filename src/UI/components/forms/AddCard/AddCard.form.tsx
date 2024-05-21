@@ -5,20 +5,25 @@ import { schemas } from "../../../../data/constants/schemas";
 import Joi from "joi";
 import Flex from "../../shared/Flex/Flex.component";
 import { FlexTypes } from "../../../../data/enums/FlexTypes.enum";
-import { normalizeUser } from "../../../../core/helpers/formNormalize.helper";
+import { normalizeCard } from "../../../../core/helpers/formNormalize.helper";
 import { addCardInitialForm } from "../../../../data/constants/initialForms";
-import { FormProps } from "../Form.props";
 import { useEffect, useRef } from "react";
 import { addCardFormInputs } from "../../../../data/constants/formInputs";
 import { FlexDirs } from "../../../../data/enums/FlexDirs.enum";
 import useAPI from "../../../../core/hooks/useAPI";
 import { paths } from "../../../../data/constants/paths";
 import { HttpMethods } from "../../../../data/enums/HttpMethods.enum";
+import { toast } from "react-toastify";
 
+export type AddCardFormProps = {
+    setIsLoading: (value: boolean) => void;
+    setIsOpen: (value: boolean) => void;
+    loadCards: () => Promise<void>;
+}
 //** LoginForm component **//
-const AddCardForm = (props: FormProps) => {
+const AddCardForm = (props: AddCardFormProps) => {
   //** Props **//
-  const { setIsLoading, setIsOpen } = props;
+  const { setIsLoading, setIsOpen, loadCards } = props;
 
   //** Hooks **//
   const { sendApiRequest, loading } = useAPI();
@@ -30,14 +35,19 @@ const AddCardForm = (props: FormProps) => {
 
   //** Functions **//
   const onAddCard = async () => {
+    setIsLoading(true);
     const res = await sendApiRequest(
       paths.cards,
       HttpMethods.POST,
-      normalizeUser(form),
+      normalizeCard(form),
     );
     if (res) {
       setIsOpen(false);
+      toast.success("Card added successfully");
+        setIsLoading(false);
+        await loadCards();
     }
+    setIsLoading(false);
   };
 
   //** Effects **//

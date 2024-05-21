@@ -54,5 +54,5 @@ export const StringAlloWSchema = (key:string)=>Joi.object({
     [key]: Joi.string()
         .min(2)
         .max(256)
-        .required()
+        .allow("", null)
 });

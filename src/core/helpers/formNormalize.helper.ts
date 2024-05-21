@@ -1,6 +1,4 @@
-import { IUser } from "../../data/types/IUser";
-
-export const normalizeUser = (user: any): IUser => {
+export const normalizeUser = (user: any) => {
     return {
         email: user.email,
         password: user.password,
@@ -25,4 +23,27 @@ export const normalizeUser = (user: any): IUser => {
         isBusiness: false,
         isAdmin: false
     }
-}
+};
+
+export const normalizeCard = (card: any) => {
+    return {
+        title: card.title,
+        subtitle: card.subtitle,
+        description: card.description,
+        phone: card.phone,
+        email: card.email,
+        web: card.web,
+        image: {
+            url: card.imageUrl,
+            alt: card.imageAlt
+        },
+        address: {
+            country: card.country,
+            state: card.state,
+            city: card.city,
+            street: card.street,
+            houseNumber: card.houseNumber,
+            zip: card.zip
+        }
+    }
+};

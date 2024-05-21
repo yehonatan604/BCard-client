@@ -11,7 +11,7 @@ const styles: Record<string, Style> = {
         all: `max-h-[300px]`,
     }),
     cardImg: new Style({
-        all: `w-[100%] max-h-[250px] h-[300px] object-cover rounded-t-[20px] shadow-lg`,
+        all: `w-[100%] max-h-[250px] h-[300px] rounded-t-[20px] shadow-lg`,
     }),
     cardTitle: {
         all: `text-2xl h-[100px] font-bold  tracking-tight text-gray-900 dark:text-white truncate text-wrap`,

@@ -202,11 +202,11 @@ export const addCardFormInputs = (errors: any) => [
     ],
     [
         {
-            id: "state",
+            id: "city",
             type: "text",
-            label: "State",
-            isRequired: false,
-            error: errors.state,
+            label: "City",
+            isRequired: true,
+            error: errors.city,
         },
         {
             id: "country",
@@ -216,11 +216,11 @@ export const addCardFormInputs = (errors: any) => [
             error: errors.country,
         },
         {
-            id: "city",
+            id: "state",
             type: "text",
-            label: "City",
-            isRequired: true,
-            error: errors.city,
+            label: "State",
+            isRequired: false,
+            error: errors.state,
         },
     ],
     [

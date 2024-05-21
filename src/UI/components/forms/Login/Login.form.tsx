@@ -11,9 +11,8 @@ import Flex from "../../shared/Flex/Flex.component";
 import { FlexTypes } from "../../../../data/enums/FlexTypes.enum";
 
 //** LoginForm component **//
-const LoginForm = (props: FormProps) => {
+const LoginForm = ({ setIsLoading, setIsOpen }: FormProps) => {
   //** Props **//
-  const { setIsLoading, setIsOpen } = props;
 
   //** Hooks **//
   const { tryLogin } = useAuth();
@@ -45,7 +44,7 @@ const LoginForm = (props: FormProps) => {
                 type={input.type}
                 variant="filled"
                 label={input.label}
-                onInput={updateForm}
+                onInput={(e:any) => updateForm(e)}
                 onBlur={updateForm}
                 autoFocus
                 helperText={

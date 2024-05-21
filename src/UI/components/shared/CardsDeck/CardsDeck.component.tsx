@@ -32,7 +32,7 @@ const CardsDeck = (props: CardsDeckProps) => {
   const { loading, sendApiRequest } = useAPI();
   const currPage = useLocation().pathname.split("/")[1];
   let cardsDeck = useRef<ICard[]>(cards);
-  const {mode} = useThemeMode();
+  const { mode } = useThemeMode();
 
   //** Redux **//
   const search = useSelector(
@@ -57,32 +57,37 @@ const CardsDeck = (props: CardsDeckProps) => {
     if (currPage === "mycards" && filtered.length > 0) {
       filtered = filtered.filter((card: ICard) => card.user_id === auth.id);
     }
-    
+
     data && setCards(filtered);
   }, [sendApiRequest, search]);
-  
-  //** Effects **//
-  useEffect(() => {
-    (async () => {
-      await getData();
-      cardsDeck.current = cards;
-    })();
-    return () => setCards([]);
+
+  // ** Callbacks **//
+  const loadCards = useCallback(async () => {
+    await getData();
+    cardsDeck.current = cards;
   }, [getData, cardsDeck]);
 
+  //** Effects **//
+  useEffect(() => {
+    loadCards();
+    return () => setCards([]);
+  }, [loadCards]);
+
   //** Variables **//
-  const canShowPlusIcon = currPage !== "favourites" &&auth.authLevel >= AuthLevels.Biz;
-  
+  const canShowPlusIcon =
+    currPage !== "favourites" && auth.authLevel >= AuthLevels.Biz;
+
   //** JSX **//
   return (
     <>
-        {canShowPlusIcon && (
-          <PiPlusCircleFill 
-            onClick={()=>setShowAddCard(true)} 
-            color={mode === 'light'? '#0259AB': 'white'} 
-            className="fixed top-[calc(80%-50px)] right-24 cursor-pointer" size={100} 
-          />
-        )}
+      {canShowPlusIcon && (
+        <PiPlusCircleFill
+          onClick={() => setShowAddCard(true)}
+          color={mode === "light" ? "#0259AB" : "white"}
+          className="fixed right-24 top-[calc(80%-50px)] cursor-pointer"
+          size={100}
+        />
+      )}
       <div className={Styles.titleContainer}>
         <h1 className={Styles.title}>{title}</h1>
         <p className={Styles.subtitle}>{subtitle} </p>
@@ -102,8 +107,17 @@ const CardsDeck = (props: CardsDeckProps) => {
         )}
         {cards.length < 4 && <div className={Styles.emptyDiv}></div>}
       </Flex>
-      <FormModal isOpen={showAddCard} setIsOpen={setShowAddCard} isLoading={isLoading} formName="Add a Business Card">
-        <AddCardForm setIsLoading={setIsLoading} setIsOpen={setShowAddCard} />
+      <FormModal
+        isOpen={showAddCard}
+        setIsOpen={setShowAddCard}
+        isLoading={isLoading}
+        formName="Add a Business Card"
+      >
+        <AddCardForm
+          loadCards={loadCards}
+          setIsLoading={setIsLoading}
+          setIsOpen={setShowAddCard}
+        />
       </FormModal>
     </>
   );

@@ -17,17 +17,17 @@ import { HttpMethods } from "../../../../data/enums/HttpMethods.enum";
 import { paths } from "../../../../data/constants/paths";
 import { FlexTypes } from "../../../../data/enums/FlexTypes.enum";
 import { FlexDirs } from "../../../../data/enums/FlexDirs.enum";
+import noPic from '../../../../assets/noPic.png';
 import Flex from "../Flex/Flex.component";
 import Styles from "./CardSingle.style";
 
-//** CardSingle component **//
-const CardSingle = ({
-  card,
-  getData,
-}: {
+export type CardSingleProps = {
   card: ICard;
   getData: () => void;
-}) => {
+};
+
+//** CardSingle component **//
+const CardSingle = ({ card, getData }: CardSingleProps) => {
   //** State **//
   const [iconsColor, setIconstColor] = useState<"black" | "white">("black");
   //** Hooks **//
@@ -80,7 +80,11 @@ const CardSingle = ({
         <img
           src={card.image.url}
           alt={card.image.alt}
-          className={Styles.cardImg}
+          className={Styles.cardImg + "object-contain"}
+          onError={(e) => {
+            e.currentTarget.src = noPic;
+            e.currentTarget.onerror = null;
+          }}
         />
       )}
     >
@@ -101,7 +105,7 @@ const CardSingle = ({
         >
           <PiPhone size={30} color={iconsColor} className={Styles.icon} />
           {auth.isLoggedIn && heart}
-          {auth.authLevel > 1 && (
+          {auth.authLevel > 1 && auth.id === card.user_id && (
             <>
               <PiPencil size={30} color={iconsColor} className={Styles.icon} />
               <PiTrash size={30} color={iconsColor} className={Styles.icon} />

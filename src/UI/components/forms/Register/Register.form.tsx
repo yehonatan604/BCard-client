@@ -11,6 +11,7 @@ import { registerInitialForm } from "../../../../data/constants/initialForms";
 import { FormProps } from "../Form.props";
 import { useEffect, useRef, useState } from "react";
 import { registerationFormInputs } from "../../../../data/constants/formInputs";
+import { IUser } from "../../../../data/types/IUser";
 
 //** LoginForm component **//
 const RegisterForm = (props: FormProps) => {
@@ -32,7 +33,7 @@ const RegisterForm = (props: FormProps) => {
   const onLogin = async () => {
     setIsLoading(true);
     const normalized = { ...normalizeUser(form), isBusiness: isBiz };
-    await register(normalized).then(() => {
+    await register(normalized as IUser).then(() => {
       setIsLoading(false);
       setIsOpen(false);
     });
@@ -65,7 +66,7 @@ const RegisterForm = (props: FormProps) => {
                       type={input.type}
                       variant="filled"
                       label={input.label}
-                      onInput={updateForm}
+                      onInput={(e:any)=>updateForm(e)}
                       onBlur={updateForm}
                       autoFocus
                       helperText={

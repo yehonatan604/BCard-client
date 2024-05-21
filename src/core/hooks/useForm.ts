@@ -13,8 +13,9 @@ const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) =>
     //** Functions **//
     const chechErrors = () => {
         let res;
+        console.log(errors);
+        
         for (const key in errors) {
-
             if (errors[key] !== "") {
                 res = true;
                 break;

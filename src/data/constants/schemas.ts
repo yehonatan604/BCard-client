@@ -43,6 +43,7 @@ export const schemas = {
         country: StringSchema("country"),
         zip: IntegerSchema("zip"),
         houseNumber: IntegerSchema("houseNumber"),
-        state: StringAlloWSchema("state")
+        state: StringAlloWSchema("state"),
+        street: StringSchema("street")
     }
 };
