@@ -11,11 +11,11 @@ import { normalizeCard } from "../helpers/formNormalize.helper";
 import { toast } from "react-toastify";
 import { AuthLevels } from "../../data/enums/AuthLevels.enum";
 
-const useCards = (cardsDeck: MutableRefObject<ICard[]>) => {
+const useCards = (cardsDeck: MutableRefObject<ICard[]>, reRender?:boolean) => {
     const [cards, setCards] = useState<ICard[]>([]);
     const { sendApiRequest, loading } = useAPI();
     const currPage = useLocation().pathname.split("/")[1];
-    const getCardsDeck = useMemo(() => cardsDeck, [cardsDeck]);
+    const getCardsDeck = useMemo(() => cardsDeck, [cardsDeck.current]);
     
     //** Redux **//
     const search = useSelector(
@@ -47,7 +47,7 @@ const useCards = (cardsDeck: MutableRefObject<ICard[]>) => {
 
     const loadCards = useCallback(async () => {
         await getData();
-        getCardsDeck.current = cards;
+        cardsDeck.current = cards;
     }, [getData, getCardsDeck]);
 
     //** Functions **//
@@ -68,7 +68,6 @@ const useCards = (cardsDeck: MutableRefObject<ICard[]>) => {
         const res = await sendApiRequest(`${paths.cards}/${id}`, HttpMethods.DELETE);
         if (res) {
             toast.success("Card deleted successfully");
-            await loadCards();
         }
     };
 
@@ -78,9 +77,10 @@ const useCards = (cardsDeck: MutableRefObject<ICard[]>) => {
 
     //** Effects **//
     useEffect(() => {
+        if (!reRender) return ;
         (async ()=>{loadCards();})();
         return () => setCards([]);
-    }, [loadCards, cardsDeck.current]);
+    }, [loadCards, getCardsDeck.current]);
 
     return { cards, addCard, canShowPlusIcon, loadCards, loading, getData, deleteCard };
 }

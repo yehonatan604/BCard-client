@@ -35,7 +35,7 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
   //** Hooks **//
   const { sendApiRequest } = useAPI();
   const { mode } = useThemeMode();
-  const {deleteCard, loadCards, getData: reload} = useCards(cardsDeckRef!);
+  const {deleteCard} = useCards(cardsDeckRef!);
 
   //** Redux **//
   const auth = useSelector<IAuthState>(
@@ -62,10 +62,7 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
   };
 
   const handleDelete = async () => {
-    await deleteCard(card._id);
-    await reload().then(async () => {
-    await loadCards();
-    });
+    await deleteCard(card._id).then(() => getData());
   };
 
   //** Variables **//
