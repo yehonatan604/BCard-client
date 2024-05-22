@@ -9,6 +9,7 @@ import Flex from "../../components/shared/Flex/Flex.component";
 import { FlexDirs } from "../../../data/enums/FlexDirs.enum";
 import { FlexTypes } from "../../../data/enums/FlexTypes.enum";
 import Styles from "./Biz.styles";
+import GoogleMapReact from 'google-map-react';
 
 //** Biz component **//
 const Biz = () => {
@@ -48,6 +49,12 @@ const Biz = () => {
   //** JSX **//
   if (!card)
     return <h1 className={Styles.warning}>No card with that Id was found!</h1>;
+
+  const location = {
+    address: "1600 Amphitheatre Parkway, Mountain View, california.",
+    lat: 37.42216,
+    lng: -122.08427,
+  };
 
   return (
     <Flex
@@ -91,13 +98,16 @@ const Biz = () => {
         )}
       </Flex>
       <Flex className={Styles.mapContainer}>
-        <iframe
-          className={Styles.map}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          src={`https://www.google.com/maps/embed/v1/place?key=${KEY}
-    &q=${card?.address.street} ${card?.address.city} ${card?.address.country}`}
-        ></iframe>
+      <div className="google-map h-[50vh] w-[50vw]">
+        <GoogleMapReact
+          bootstrapURLKeys={{ key: KEY }}
+          defaultCenter={location}
+          defaultZoom={17}>
+          <div className="h-[50vh] w-[50vw]">
+
+          </div>
+        </GoogleMapReact>
+        </div>
       </Flex>
     </Flex>
   );
