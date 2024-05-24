@@ -1,6 +1,6 @@
 //** Dependencies **//
 import { useLocation } from "react-router-dom";
-import { useEffect, useState, MouseEvent } from "react";
+import { useEffect, useState, MouseEvent, useCallback, memo } from "react";
 import useAPI from "../../../core/hooks/useAPI";
 import { HttpMethods } from "../../../data/enums/HttpMethods.enum";
 import { ICard } from "../../../data/types/ICard";
@@ -9,12 +9,11 @@ import Flex from "../../components/shared/Flex/Flex.component";
 import { FlexDirs } from "../../../data/enums/FlexDirs.enum";
 import { FlexTypes } from "../../../data/enums/FlexTypes.enum";
 import Styles from "./Biz.styles";
-import GoogleMapReact from 'google-map-react';
 
 //** Biz component **//
 const Biz = () => {
-    const {VITE_GOOGLE_MAPS_API_KEY:KEY} = import.meta.env;    
-    
+  const { VITE_GOOGLE_MAPS_API_KEY: KEY } = import.meta.env;
+
   //** State **//
   const [card, setCard] = useState<ICard | null>(null);
 
@@ -50,12 +49,6 @@ const Biz = () => {
   if (!card)
     return <h1 className={Styles.warning}>No card with that Id was found!</h1>;
 
-  const location = {
-    address: "1600 Amphitheatre Parkway, Mountain View, california.",
-    lat: 37.42216,
-    lng: -122.08427,
-  };
-
   return (
     <Flex
       dir={FlexDirs.Column}
@@ -68,6 +61,11 @@ const Biz = () => {
       <Flex className={Styles.subtitleContainer}>
         <h3 className={Styles.subtitle}>{card?.subtitle}</h3>
       </Flex>
+      <img
+        className={Styles.img}
+        alt={card?.image.alt || "Bizcard picture"}
+        src={card.image.url}
+      />
       <Flex justify={FlexTypes.Start} className={Styles.descriptionContainer}>
         <h4 className={Styles.description}>{card?.description}</h4>
       </Flex>
@@ -98,19 +96,20 @@ const Biz = () => {
         )}
       </Flex>
       <Flex className={Styles.mapContainer}>
-      <div className="google-map h-[50vh] w-[50vw]">
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: KEY }}
-          defaultCenter={location}
-          defaultZoom={17}>
-          <div className="h-[50vh] w-[50vw]">
-
-          </div>
-        </GoogleMapReact>
+        <div className="google-map h-[50vh] w-[50vw]">
+          <iframe
+            width="100%"
+            height="500"
+            className={Styles.map}
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+            loading="lazy"
+            src={`https://www.google.com/maps/embed/v1/place?key=${KEY}&q=${card?.address.street}+${card?.address.city}+${card?.address.state}`}
+          ></iframe>
         </div>
       </Flex>
     </Flex>
   );
 };
 
-export default Biz;
+export default memo(Biz);

@@ -24,9 +24,6 @@ const CardsDeck = (props: CardsDeckProps) => {
   let cardsDeck = useRef<ICard[]>([]);
   const { mode } = useThemeMode();
   const { cards, loading, canShowPlusIcon, getData, loadCards } = useCards(cardsDeck, true);
-
-
-  console.log(cards);
   
   //** JSX **//
   return (
