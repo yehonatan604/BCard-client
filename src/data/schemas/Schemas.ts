@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { passwordRegex, phoneRegex } from "../constants/regex";
+import { passwordRegex, phoneRegex, urlRegex } from "../constants/regex";
 
 export const EmailSchema = Joi.object({
     email: Joi.string()
@@ -32,8 +32,11 @@ export const PhoneSchema = Joi.object({
 
 export const UrlSchema = (key:string)=>Joi.object({
     [key]: Joi.string()
-        .min(14)
-        .uri()
+        .min(10)
+        .ruleset.regex(urlRegex)
+        .rule({
+            message: "url must be a valid"
+        })
         .allow("", null)
 });
 

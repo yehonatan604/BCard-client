@@ -1,6 +1,6 @@
 //** Dependencies **//
 import { useLocation } from "react-router-dom";
-import { useEffect, useState, MouseEvent, useCallback, memo } from "react";
+import { useEffect, useState, MouseEvent, memo } from "react";
 import useAPI from "../../../core/hooks/useAPI";
 import { HttpMethods } from "../../../data/enums/HttpMethods.enum";
 import { ICard } from "../../../data/types/ICard";
@@ -104,7 +104,8 @@ const Biz = () => {
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
             loading="lazy"
-            src={`https://www.google.com/maps/embed/v1/place?key=${KEY}&q=${card?.address.street}+${card?.address.city}+${card?.address.state}`}
+            src={`
+            https://www.google.com/maps/embed/v1/place?key=${KEY}&q=${card?.address.street}+${card?.address.city}+${card?.address.state}`}
           ></iframe>
         </div>
       </Flex>

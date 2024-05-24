@@ -112,7 +112,7 @@ const Header = () => {
             <Navbar.Brand className={Styles.themeToggleContainer}>
               <DarkThemeToggle className={Styles.themeToggle} />
             </Navbar.Brand>
-            <Navbar.Brand>
+            <Navbar.Brand as={Link} to={'/profile'}>
               <img src={userImg} alt="user's image" className={Styles.img} />
             </Navbar.Brand>
 

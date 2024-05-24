@@ -11,6 +11,7 @@ import Error from "../pages/Error/Error.page";
 import About from "../pages/About/About.page";
 import MyCards from "../pages/MyCards/MyCards.page";
 import Biz from "../pages/Biz/Biz.page";
+import Profile from "../pages/Profile/Profile.page";
 
 //** AppRoutes component **//
 const AppRoutes = () => {
@@ -25,6 +26,14 @@ const AppRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/biz/:id" element={<Biz />} />
+      <Route
+        path="/profile"
+        element={
+          <RouteGuard authLevel={auth.authLevel} minimumLevel={AuthLevels.User}>
+            <Profile />
+          </RouteGuard>
+        }
+      />
       <Route
         path="/favourites"
         element={

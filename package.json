@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
-    "@vis.gl/react-google-maps": "^1.0.0",
     "axios": "^1.6.8",
     "flowbite-react": "^0.8.0",
     "joi": "^17.13.1",

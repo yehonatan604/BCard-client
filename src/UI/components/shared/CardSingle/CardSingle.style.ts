@@ -1,11 +1,10 @@
 import { normalized } from "../../../../core/helpers/Style.Helper";
-import { Style } from "../../../../data/models/Style.model";
+import { Style } from "../../../../data/classes/Style.class";
 
 const styles: Record<string, Style> = {
     card: new Style({
-        all: `w-[350px] h-[500px] rounded-[20px] transition-all cursor-pointer`,
+        all: `w-[350px] h-[500px] rounded-[20px] transition-all cursor-pointer hover:scale-[99%]`,
         maxMd: `w-3/4`,
-        hover: `scale-[99%]`
     }),
     cardInnerContainer: new Style({
         all: `max-h-[300px]`,
@@ -26,7 +25,7 @@ const styles: Record<string, Style> = {
         all: `w-full overflow-hidden h-[50px]`,
     }),
     icon: new Style({
-        hover: `border-x-2`,
+        all: `hover:border-x-2`,
     }),
     seperator: new Style({
         all: `w-full my-3`,

@@ -22,6 +22,8 @@ import Flex from "../Flex/Flex.component";
 import Styles from "./CardSingle.style";
 import useCards from "../../../../core/hooks/useCards";
 import { useNavigate } from "react-router-dom";
+import FormModal from "../../../modals/Form.modal";
+import EditCardForm from "../../forms/EditCard/EditCard.form";
 
 export type CardSingleProps = {
   card: ICard;
@@ -33,10 +35,13 @@ export type CardSingleProps = {
 const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
   //** State **//
   const [iconsColor, setIconstColor] = useState<"black" | "white">("black");
+  const [showEditModal, setShowEditModal] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+
   //** Hooks **//
   const { sendApiRequest } = useAPI();
   const { mode } = useThemeMode();
-  const {deleteCard} = useCards(cardsDeckRef!);
+  const {deleteCard, loadCards} = useCards(cardsDeckRef!);
   const nav = useNavigate();
 
   //** Redux **//
@@ -71,6 +76,10 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
     nav(`/biz/${card._id}`);
   };
 
+  const handleCall = () => {
+    window.open(`tel:${card.phone}`);
+  };
+
   //** Variables **//
   const heartProps = {
     size: 30,
@@ -85,8 +94,13 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
     <PiHeart {...heartProps} />
   );
 
+  const editCard = () => {
+    setShowEditModal(true);
+  };
+
   //** JSX **//
   return (
+    <>
     <Card
       className={Styles.card}
       renderImage={() => (
@@ -117,17 +131,21 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
           className={Styles.iconsDiv}
           justify={auth.authLevel > 1 ? FlexTypes.Between : FlexTypes.Center}
         >
-          <PiPhone size={30} color={iconsColor} className={Styles.icon} />
+          <PiPhone size={30} color={iconsColor} className={Styles.icon} onClick={handleCall} />
           {auth.isLoggedIn && heart}
           {auth.authLevel > 1 && auth.id === card.user_id && (
             <>
-              <PiPencil size={30} color={iconsColor} className={Styles.icon} />
+              <PiPencil size={30} color={iconsColor} className={Styles.icon} onClick={editCard} />
               <PiTrash size={30} color={iconsColor} className={Styles.icon} onClick={handleDelete}/>
             </>
           )}
         </Flex>
       </Flex>
     </Card>
+    <FormModal isOpen={showEditModal} setIsOpen={setShowEditModal} formName="Edit Card" isLoading={loading}>
+      <EditCardForm setIsLoading={setLoading} setIsOpen={setShowEditModal} loadCards={loadCards} card={card} cardsDeckRef={cardsDeckRef}/>
+    </FormModal>
+    </>
   );
 };
 

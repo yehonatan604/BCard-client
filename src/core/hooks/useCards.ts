@@ -6,7 +6,7 @@ import useAPI from "./useAPI";
 import { useSelector } from "react-redux";
 import { IAuthState } from "../../data/types/IAuthState";
 import { IRootState } from "../../data/types/IRootState";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { normalizeCard } from "../helpers/formNormalize.helper";
 import { toast } from "react-toastify";
 import { AuthLevels } from "../../data/enums/AuthLevels.enum";
@@ -16,6 +16,7 @@ const useCards = (cardsDeck?: MutableRefObject<ICard[]>, reRender?:boolean) => {
     const { sendApiRequest, loading } = useAPI();
     const currPage = useLocation().pathname.split("/")[1];
     const getCardsDeck = useMemo(() => cardsDeck, [cardsDeck? cardsDeck.current : []]);
+    const nav = useNavigate();
     
     //** Redux **//
     const search = useSelector(
@@ -71,6 +72,19 @@ const useCards = (cardsDeck?: MutableRefObject<ICard[]>, reRender?:boolean) => {
         }
     };
 
+    const updateCard = async (card: ICard) => {        
+        const res = await sendApiRequest(
+            `${paths.cards}/${card._id}`,
+            HttpMethods.PUT,
+            normalizeCard(card),
+        );
+        if (res) {
+            toast.success("Card updated successfully");
+            await loadCards();
+            nav(location);
+        }
+    };
+
     //** Variables **//
     const canShowPlusIcon =
         currPage !== "favourites" && auth.authLevel >= AuthLevels.Biz;
@@ -82,7 +96,7 @@ const useCards = (cardsDeck?: MutableRefObject<ICard[]>, reRender?:boolean) => {
         return () => setCards([]);
     }, [loadCards, getCardsDeck!.current]);
 
-    return { cards, addCard, canShowPlusIcon, loadCards, loading, getData, deleteCard };
+    return { cards, addCard, canShowPlusIcon, loadCards, loading, getData, deleteCard, updateCard };
 }
 
 export default useCards;

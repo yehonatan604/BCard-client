@@ -38,7 +38,6 @@ const useAuth = () => {
         toast("Registered successfully", { type: "success" });
     }, [sendApiRequest]);
 
-
     // Logout
     const logout = useCallback(() => {
         dispatch(authActions.logout());
@@ -46,7 +45,19 @@ const useAuth = () => {
         toast(`Logged out successfully`, { type: "success" });
     }, [dispatch]);
 
-    return { loading, error, data, login, tryLogin, logout, register };
+    // Get user by id
+    const getUserById = useCallback(async (id: string) => {
+        return await sendApiRequest(`${paths.users}/${id}`, HttpMethods.GET);
+    }, [sendApiRequest]);
+
+    const updateUser = useCallback(async (user: any) => {
+        const id = (decode(localStorage.getItem('token')!) as any)._id;
+        const res = await sendApiRequest(`${paths.users}/${id}`, HttpMethods.PUT, user);
+        toast("Profile updated successfully", { type: "success" });
+        return res;
+    }, [sendApiRequest]);
+
+    return { loading, error, data, login, tryLogin, logout, register, getUserById, updateUser };
 }
 
 export default useAuth;

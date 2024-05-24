@@ -1,4 +1,4 @@
-import { Style } from "../../../data/models/Style.model";
+import { Style } from "../../../data/classes/Style.class";
 import { normalized } from "../../../core/helpers/Style.Helper";
 
 const styles: Record<string, Style> = {

@@ -11,9 +11,8 @@ const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) =>
     const [form, setForm] = useState({ ...initialState });
 
     //** Functions **//
-    const chechErrors = () => {
+    const chechErrors = () => {        
         let res;
-        console.log(errors);
         
         for (const key in errors) {
             if (errors[key] !== "") {
@@ -30,7 +29,7 @@ const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) =>
     const updateForm = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const id: string = e.target.id;
         const value = e.target.value;
-
+            
         Promise.resolve(
             setForm({
                 ...form,
@@ -71,7 +70,7 @@ const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) =>
     };
 
 
-    return { form, errors, updateForm, chechErrors };
+    return { form, errors, updateForm, setForm, chechErrors };
 };
 
 export default useForm;

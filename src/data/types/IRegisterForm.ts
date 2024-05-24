@@ -1,9 +1,9 @@
 export type IRegisterForm = {
     email: string;
     password: string;
-    fName: string;
-    mName: string;
-    lName: string;
+    first: string;
+    middle: string;
+    last: string;
     phone: string;
     country: string;
     state: string;

@@ -3,10 +3,25 @@ import { IRegisterForm } from "../types/IRegisterForm";
 export const registerInitialForm: IRegisterForm = {
     email: "",
     password: "",
-    fName: "",
-    mName: "",
-    lName: "",
+    first: "",
+    middle: "",
+    last: "",
     phone: "",
+    country: "",
+    state: "",
+    city: "",
+    street: "",
+    houseNumber: null,
+    zip: null,
+};
+
+export const editProfileInitialForm = {
+    first: "",
+    middle: "",
+    last: "",
+    phone: "",
+    imageUrl: "",
+    imageAlt: "",
     country: "",
     state: "",
     city: "",
