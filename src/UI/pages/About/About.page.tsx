@@ -1,11 +1,12 @@
 import { FlexDirs } from "../../../data/enums/FlexDirs.enum";
 import { FlexTypes } from "../../../data/enums/FlexTypes.enum";
 import Flex from "../../components/shared/Flex/Flex.component";
+import Styles from "./About.style";
 
 const About = () => {
   return (
-    <Flex dir={FlexDirs.Column} className="light:text-dark dark:text-white">
-      <h1 className="overflow-hidden text-center text-3xl m-4">About Us</h1>
+    <Flex dir={FlexDirs.Column} className={Styles.container}>
+      <h1 className={Styles.title}>About Us</h1>
       <Flex justify={FlexTypes.Start} className="w-4/5">
         <p>
           Welcome to BCard, your ultimate solution for creating, browsing, and

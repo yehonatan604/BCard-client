@@ -3,19 +3,24 @@ import { normalized } from "../../../../core/helpers/Style.Helper";
 
 const styles: Record<string, Style> = {
     container: new Style({
-        all: `flex flex-wrap w-[100%] justify-center items-start md:flex-row flex-col gap-4`,
+        all: `flex flex-wrap w-[100%] justify-center items-start flex-col gap-4`,
+        md: `md:flex-row`
     }),
     section: new Style({
-        all: `md:w-[30%] w-[100%]`,
+        all: `w-[100%]`,
+        md: `md:w-[30%]`,
     }),
     error: new Style({
-        all: `border-red-500 dark:border-red-500`,
+        all: `border-red-500`,
+        dark: `dark:border-red-500`,
     }),
     input: new Style({
-        all: `mb-0 pb-0 w-[100vw] md:w-[80%]`,
+        all: `mb-0 pb-0 w-[100vw]`,
+        md: `md:w-[80%]`,
     }),
     seperator: new Style({
-        all: `md:m-10 m-4`,
+        all: `m-4`,
+        md: `md:m-10`
     }),
     chkboxContainer: new Style({
         all: `ml-1 gap-3`,

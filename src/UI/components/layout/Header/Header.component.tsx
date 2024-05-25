@@ -13,7 +13,6 @@ import { BiSearch } from "react-icons/bi";
 import { searchActions } from "../../../../core/store/SearchSlice";
 import { ChangeEvent, useEffect, useState } from "react";
 import Styles from "./Header.style";
-import FormModal from "../../../modals/Form.modal";
 import LoginForm from "../../forms/Login/Login.form";
 import { IRootState } from "../../../../data/types/IRootState";
 import useAuth from "../../../../core/hooks/useAuth";
@@ -21,6 +20,7 @@ import { IAuthState } from "../../../../data/types/IAuthState";
 import { getToken } from "../../../../core/helpers/Storage.helper";
 import { correctRoute } from "../../../../core/helpers/Route.helper";
 import RegisterForm from "../../forms/Register/Register.form";
+import FormModal from "../../../modals/FormModal/Form.modal";
 
 //** Header component **//
 const Header = () => {
@@ -74,14 +74,7 @@ const Header = () => {
             href={"/"}
             className={Styles.bcardContainer}
           >
-            <h1
-              className={`
-            ${Styles.bcard} 
-            ${mode === "light" ? Styles.bcardL : Styles.bcardD}
-            `}
-            >
-              B-Card
-            </h1>
+            <h1 className={`${Styles.bcard}`}>B-Card</h1>
           </Navbar.Brand>
           <Navbar.Toggle />
           <Navbar.Collapse className="w-[35vw]">
@@ -112,7 +105,7 @@ const Header = () => {
             <Navbar.Brand className={Styles.themeToggleContainer}>
               <DarkThemeToggle className={Styles.themeToggle} />
             </Navbar.Brand>
-            <Navbar.Brand as={Link} to={'/profile'}>
+            <Navbar.Brand as={Link} to={"/profile"}>
               <img src={userImg} alt="user's image" className={Styles.img} />
             </Navbar.Brand>
 

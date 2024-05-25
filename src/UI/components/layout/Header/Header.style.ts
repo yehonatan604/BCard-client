@@ -8,8 +8,8 @@ const styles: Record<string, Style> = {
         all: `fixed w-full z-10 border-b-1 border-solid border-gray-200 shadow-lg`,
     }),
     container: new Style({
-        md: 'flex-row',
         all: `flex flex-col m-auto w-full`,
+        md: 'md:flex-row',
     }),
     navbarL: new Style({
         all: `bg-blue-500`
@@ -18,57 +18,56 @@ const styles: Record<string, Style> = {
         all: `bg-dark`
     }),
     bcardContainer: new Style({
-        all: `mb-2 flex justify-center w-[fit-content] md:mr-10`,
+        all: `mb-2 flex justify-center w-[fit-content]`,
+        md: `md:mr-10`
     }),
     bcard: new Style({
-        maxMd: `m-auto my-3`,
-        hover: `font-bold`,
-        all: `font-semibold text-2xl`,
-    }),
-    bcardL: new Style({
-        all: `text-slate-700`
-    }),
-    bcardD: new Style({
-        all: `text-white`
+        all: `font-semibold text-2xl text-slate-700`,
+        maxMd: `max-md:m-auto max-md:my-3`,
+        hover: `hover:text-white`,
+        dark: `dark:text-slate-400 dark:hover:text-white`
     }),
     search: {
         all: `p-2`,
     },
     navLinksContainer: {
         all: `flex gap-10 flex-wrap`,
-        md: `mr-10`
+        md: `md:mr-10`
     },
     navLink: new Style({
-        all: `p-1 link`,
+        md: `md:hover:text-white`,
     }),
     rightContainer: new Style({
-        all: `md:gap-10 md:ml-10`,
+        md: `md:gap-10 md:ml-10`,
     }),
     themeToggleContainer: new Style({
         all: `flex justify-center items-center px-2`,
-        md: `w-[3.5vw] h-[12vh]`
+        md: `md:w-[3.5vw] md:h-[12vh]`
     }),
     themeToggle: new Style({
-        all: `p-2 rounded-full focus:ring-0 text-slate-600`,
-        hover: `bg-opacity-50`,
-        focus: `ring-0`,
+        all: `p-2 rounded-full text-slate-600`,
+        md: `md:hover:text-white`,
+        hover: `hover:bg-transparent`,
+        dark: `dark:hover:bg-transparent`,
+        focus: `focus:ring-0`,
     }),
     img: new Style({
-        all: `rounded-full m-auto w-[15vw] md:w-[4vw] px-2`,
-        md: `w-[4vw]`,
+        all: `rounded-full m-auto w-[3vw]`,
+        md: `md:w-[4vw]`,
+        hover: `hover:scale-[90%]`,
     }),
     authContainer: new Style({
         all: `list-none`,
     }),
     authContainerL: new Style({
-        all: `link`,
+        all: ``,
     }),
     authContainerD: new Style({
-        all: `text-slate-400`,
+        all: `text-slate-900`,
     }),
     authLink: new Style({
-        all: `font-medium border-0 link`,
-        hover: 'text-black'
+        all: `font-medium border-0 `,
+        md: `md:hover:text-white`,
     }),
 }
 

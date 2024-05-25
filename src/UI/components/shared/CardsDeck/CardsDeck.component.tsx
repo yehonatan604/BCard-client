@@ -7,7 +7,7 @@ import CardSingle from "../CardSingle/CardSingle.component";
 import Styles from "./CardsDeck.style";
 import { CardsDeckProps } from "./CardsDeck.props";
 import { PiPlusCircleFill } from "react-icons/pi";
-import FormModal from "../../../modals/Form.modal";
+import FormModal from "../../../modals/FormModal/Form.modal";
 import AddCardForm from "../../forms/AddCard/AddCard.form";
 import useCards from "../../../../core/hooks/useCards";
 
@@ -19,12 +19,15 @@ const CardsDeck = (props: CardsDeckProps) => {
   //** State **//
   const [showAddCard, setShowAddCard] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  
+
   //** Hooks **//
   let cardsDeck = useRef<ICard[]>([]);
   const { mode } = useThemeMode();
-  const { cards, loading, canShowPlusIcon, getData, loadCards } = useCards(cardsDeck, true);
-  
+  const { cards, loading, canShowPlusIcon, getData, loadCards } = useCards(
+    cardsDeck,
+    true,
+  );
+
   //** JSX **//
   return (
     <>
@@ -43,7 +46,14 @@ const CardsDeck = (props: CardsDeckProps) => {
       <Flex className={Styles.container}>
         {cards &&
           cards.map((card: ICard, index) => {
-            return <CardSingle cardsDeckRef={cardsDeck} key={index} card={card} getData={getData} />;
+            return (
+              <CardSingle
+                cardsDeckRef={cardsDeck}
+                key={index}
+                card={card}
+                getData={getData}
+              />
+            );
           })}
         {cards.length === 0 && !loading && (
           <h1 className={Styles.noCards}>No cards were found!!!</h1>

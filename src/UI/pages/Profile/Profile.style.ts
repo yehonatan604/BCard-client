@@ -3,13 +3,15 @@ import { Style } from "../../../data/classes/Style.class";
 
 const styles: Record<string, Style> = {
     container: new Style({
-        all: `mb-4 mt-14 h-[90vh] md:mt-4`,
+        all: `mb-4 mt-14 h-[90vh]`,
+        md: `md:mt-4`,
     }),
     title: new Style({
         all: `my-2 overflow-hidden text-3xl`,
     }),
     card: new Style({
-        all: `mt-4 rounded-lg border border-violet-300 p-4 shadow-xl shadow-slate-800 md:w-96`,
+        all: `mt-4 rounded-lg border border-violet-300 p-4 shadow-xl shadow-slate-800`,
+        md: `md:w-96`,
     }),
     img: new Style({
         all: `m-auto h-20 w-20 rounded-full border border-violet-300 shadow-lg shadow-slate-800`,

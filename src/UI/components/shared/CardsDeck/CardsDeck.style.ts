@@ -9,8 +9,8 @@ const styles: Record<string, Style> = {
         all: `h-[10vh]`,
     }),
     titleContainer: new Style({
-        dark: `text-white`,
         all: `text-center`,
+        dark: `dark:text-white`,
     }),
     title: new Style({
         all: `p-3 text-4xl`,

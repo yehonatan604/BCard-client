@@ -4,6 +4,7 @@ import Flex from "../../components/shared/Flex/Flex.component";
 import oopsImg from "../../../assets/oops.png";
 import { Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
+import Styles from "./Error.style";
 
 //** Error page **//
 const Error = () => {
@@ -15,9 +16,9 @@ const Error = () => {
 
   //** JSX **//
   return (
-    <Flex dir={FlexDirs.Column} className="h-[80vh]">
-      <h1 className="overflow-hidden text-5xl">404</h1>
-      <img src={oopsImg} alt="404" className="m-10 w-1/4" />
+    <Flex dir={FlexDirs.Column} className={Styles.container}>
+      <h1 className={Styles.status404}>404</h1>
+      <img src={oopsImg} alt="404" className={Styles.img} />
       <Button gradientMonochrome={"info"} onClick={goHome}>
         Home
       </Button>

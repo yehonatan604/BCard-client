@@ -8,7 +8,7 @@ import { paths } from "../../../data/constants/paths";
 import Flex from "../../components/shared/Flex/Flex.component";
 import { FlexDirs } from "../../../data/enums/FlexDirs.enum";
 import { FlexTypes } from "../../../data/enums/FlexTypes.enum";
-import Styles from "./Biz.styles";
+import Styles from "./Biz.style";
 
 //** Biz component **//
 const Biz = () => {
@@ -45,6 +45,9 @@ const Biz = () => {
     })();
   }, [id, sendApiRequest]);
 
+  console.log(Styles.card);
+  
+
   //** JSX **//
   if (!card)
     return <h1 className={Styles.warning}>No card with that Id was found!</h1>;
@@ -61,7 +64,7 @@ const Biz = () => {
           dir={FlexDirs.Column}
           justify={FlexTypes.Start}
           items={FlexTypes.Start}
-          className={Styles.card}
+          className={Styles.card.toString()}
         >
           <h1 className={Styles.subtitle}>{card.subtitle}</h1>
           <img

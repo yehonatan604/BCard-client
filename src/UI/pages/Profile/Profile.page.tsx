@@ -10,7 +10,7 @@ import { FlexDirs } from "../../../data/enums/FlexDirs.enum";
 import { FlexTypes } from "../../../data/enums/FlexTypes.enum";
 import Styles from "./Profile.style";
 import { Button } from "flowbite-react";
-import FormModal from "../../modals/Form.modal";
+import FormModal from "../../modals/FormModal/Form.modal";
 import EditProfileForm from "../../components/forms/EditProfile/EditProfile.form";
 
 //** Profile Page **//

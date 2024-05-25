@@ -1,8 +1,8 @@
 // ** Dependencies **//
 import { Modal, Spinner } from "flowbite-react";
 import { FormModalProps } from "./FormModal.props";
-import Flex from "../components/shared/Flex/Flex.component";
-import { FlexDirs } from "../../data/enums/FlexDirs.enum";
+import Flex from "../../components/shared/Flex/Flex.component";
+import { FlexDirs } from "../../../data/enums/FlexDirs.enum";
 
 //** FormModal component **//
 const FormModal = (props: FormModalProps) => {
