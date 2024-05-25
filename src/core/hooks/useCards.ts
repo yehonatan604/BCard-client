@@ -1,3 +1,4 @@
+//** Dependencies **//
 import { MutableRefObject, useCallback, useEffect, useMemo, useState } from "react"
 import { ICard } from "../../data/types/ICard";
 import { paths } from "../../data/constants/paths";
@@ -11,6 +12,7 @@ import { normalizeCard } from "../helpers/formNormalize.helper";
 import { toast } from "react-toastify";
 import { AuthLevels } from "../../data/enums/AuthLevels.enum";
 
+// *** custom hook for cards *** //
 const useCards = (cardsDeck?: MutableRefObject<ICard[]>, reRender?:boolean) => {
     const [cards, setCards] = useState<ICard[]>([]);
     const { sendApiRequest, loading } = useAPI();

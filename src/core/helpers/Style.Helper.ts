@@ -1,4 +1,4 @@
-// *** Imports *** //
+// *** Depndencies *** //
 import { IStyle } from "../../data/types/IStyle";
 
 // this function takes a style object and returns a string that represents the normalized style
@@ -10,7 +10,7 @@ const normalizeStyle = (style: IStyle): string => {
     const light = style.light && style.light?.split(' ').map((item) => 'light:' + item).join(' ');
     const dark = style.dark && style.dark?.split(' ').map((item) => 'dark:' + item).join(' ');
     const focus = style.focus && style.focus?.split(' ').map((item) => 'focus:' + item).join(' ');
-    return `${style.all} ${md!} ${maxMd!} ${hover!} ${transition!} ${light!} ${dark!} ${focus!}`;
+    return `${maxMd!} ${md!} ${light!} ${dark!} ${hover!} ${transition!} ${focus!} ${style.all}`;
 }
 
 // this function takes a styles object and returns a normalized styles object

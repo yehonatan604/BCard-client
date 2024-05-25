@@ -6,6 +6,9 @@ export class Style implements IStyle {
     maxMd?: string = "";
     hover?: string = "";
     transition?: string = "";
+    dark?: string= "";
+    light?: string= "";
+    focus?: string= "";
 
     constructor(props: IStyle) {
         Object.assign(this, props);

@@ -1,4 +1,5 @@
 //** Dependencies **//
+import Styles from "./Register.style";
 import { Button, Checkbox, FloatingLabel } from "flowbite-react";
 import useAuth from "../../../../core/hooks/useAuth";
 import useForm from "../../../../core/hooks/useForm";
@@ -8,13 +9,13 @@ import Flex from "../../shared/Flex/Flex.component";
 import { FlexTypes } from "../../../../data/enums/FlexTypes.enum";
 import { normalizeUser } from "../../../../core/helpers/formNormalize.helper";
 import { registerInitialForm } from "../../../../data/constants/initialForms";
-import { FormProps } from "../Form.props";
 import { useEffect, useRef, useState } from "react";
 import { registerationFormInputs } from "../../../../data/constants/formInputs";
 import { IUser } from "../../../../data/types/IUser";
+import { RegisterFormProps } from "./Register.props";
 
 //** LoginForm component **//
-const RegisterForm = (props: FormProps) => {
+const RegisterForm = (props: RegisterFormProps) => {
   //** Props **//
   const { setIsLoading, setIsOpen } = props;
 
@@ -51,22 +52,26 @@ const RegisterForm = (props: FormProps) => {
         return (
           <div id="container" ref={containerRef} key={outerIndex}>
             <Flex
-              className="h-[15vh] gap-10"
+              className={Styles.container}
               justify={FlexTypes.Start}
               items={FlexTypes.Start}
             >
               {section.map((input, innerIndex) => {
+                console.log(input);
+                
                 return (
-                  <Flex key={innerIndex} className="w-[100%]">
+                  <Flex key={innerIndex} className={Styles.section}>
                     <FloatingLabel
                       className={
-                        input.error ? "border-red-500 dark:border-red-500" : ""
+                        input.error 
+                          ? `${Styles.input} ${Styles.error}`
+                          : Styles.input 
                       }
                       id={input.id}
                       type={input.type}
                       variant="filled"
                       label={input.label}
-                      onInput={(e:any)=>updateForm(e)}
+                      onInput={(e: any) => updateForm(e)}
                       onBlur={updateForm}
                       autoFocus
                       helperText={
@@ -80,31 +85,31 @@ const RegisterForm = (props: FormProps) => {
                 );
               })}
             </Flex>
-            <hr className="m-auto my-4 w-3/4" />
+            <hr className={Styles.seperator} />
           </div>
         );
       })}
-      <Flex className="ml-1 gap-3" justify={FlexTypes.Start}>
+      <Flex className={Styles.chkboxContainer} justify={FlexTypes.Start}>
         <Checkbox
           id="isBusiness"
           checked={isBiz}
           onChange={() => setIsBiz(!isBiz)}
-          className="ml-1"
+          className={Styles.chkBox}
           autoFocus
         />
         <p>is business</p>
       </Flex>
-      <hr className="m-auto my-4 w-3/4" />
+      <hr className={Styles.seperator}/>
       <Button
         gradientMonochrome={"info"}
-        className="m-auto mb-1 mt-4"
+        className={Styles.btn}
         onClick={onLogin}
         disabled={chechErrors()}
       >
         Send
       </Button>
       {
-        <p className="pt-2 text-center">
+        <p className={Styles.formError}>
           {chechErrors() && "please fill all the required fields correctly"}
         </p>
       }

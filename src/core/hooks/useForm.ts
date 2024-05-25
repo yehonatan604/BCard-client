@@ -4,16 +4,17 @@ import { validate } from "../helpers/Validation.helper";
 import { ChangeEvent } from "react";
 import Joi from "joi";
 
-//** useForm hook **//
+// *** custom hook for forms *** //
 const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) => {
     //** State **//
     const [errors, setErrors] = useState({ ...initialState });
     const [form, setForm] = useState({ ...initialState });
 
     //** Functions **//
-    const chechErrors = () => {        
+    const chechErrors = () => {     
+        console.log(errors);
+           
         let res;
-        
         for (const key in errors) {
             if (errors[key] !== "") {
                 res = true;
@@ -23,12 +24,13 @@ const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) =>
             }
         }
         return res;
-
     }
 
     const updateForm = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const id: string = e.target.id;
         const value = e.target.value;
+        console.log(id, value);
+        
             
         Promise.resolve(
             setForm({

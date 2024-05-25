@@ -1,4 +1,4 @@
-// *** Imports *** //
+//** Dependencies **//
 import axios from "axios";
 import { useCallback, useState } from "react";
 import { toast } from "react-toastify";
@@ -36,4 +36,3 @@ const useAPI = () => {
 };
 
 export default useAPI;
-// Path: src/Core/hooks/useAPI.ts

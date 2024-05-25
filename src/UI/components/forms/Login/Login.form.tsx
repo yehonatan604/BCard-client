@@ -1,17 +1,18 @@
 //** Dependencies **//
+import Styles from "./Login.style";
 import { Button, FloatingLabel } from "flowbite-react";
 import useAuth from "../../../../core/hooks/useAuth";
 import useForm from "../../../../core/hooks/useForm";
 import { schemas } from "../../../../data/constants/schemas";
 import Joi from "joi";
 import { loginInitialForm } from "../../../../data/constants/initialForms";
-import { FormProps } from "../Form.props";
 import { loginFormInputs } from "../../../../data/constants/formInputs";
 import Flex from "../../shared/Flex/Flex.component";
 import { FlexTypes } from "../../../../data/enums/FlexTypes.enum";
+import { LoginFormProps } from "./Login.props";
 
 //** LoginForm component **//
-const LoginForm = ({ setIsLoading, setIsOpen }: FormProps) => {
+const LoginForm = ({ setIsLoading, setIsOpen }: LoginFormProps) => {
   //** Props **//
 
   //** Hooks **//
@@ -32,19 +33,20 @@ const LoginForm = ({ setIsLoading, setIsOpen }: FormProps) => {
 
   //** JSX **//
   return (
-    <form className="h-[25vh]">
-      <Flex items={FlexTypes.Start} className="m-auto gap-10">
+    <form>
+      <Flex items={FlexTypes.Start} className={Styles.container}>
         {loginFormInputs(errors).map((input, index) => {
           return (
-            <div className="h-[17vh]">
+            <div className={Styles.section} key={index}>
               <FloatingLabel
-                key={index}
-                className={`${input.error ? "border-red-500 dark:border-red-500" : ""} w-[15vw]`}
+                className={
+                  input.error ? `${Styles.input} ${Styles.error}` : Styles.input
+                }
                 id={input.id}
                 type={input.type}
                 variant="filled"
                 label={input.label}
-                onInput={(e:any) => updateForm(e)}
+                onInput={(e: any) => updateForm(e)}
                 onBlur={updateForm}
                 autoFocus
                 helperText={
@@ -60,12 +62,17 @@ const LoginForm = ({ setIsLoading, setIsOpen }: FormProps) => {
       </Flex>
       <Button
         gradientMonochrome={"info"}
-        className="m-auto mb-1 mt-2"
+        className={Styles.btn}
         onClick={onLogin}
         disabled={chechErrors()}
       >
         Send
       </Button>
+      {
+        <p className={Styles.formError}>
+          {chechErrors() && "please fill all the required fields correctly"}
+        </p>
+      }
     </form>
   );
 };

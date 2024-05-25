@@ -107,7 +107,7 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
         <img
           src={card.image.url}
           alt={card.image.alt}
-          className={Styles.cardImg + "object-contain"}
+          className={Styles.cardImg}
           onError={(e) => {
             e.currentTarget.src = noPic;
             e.currentTarget.onerror = null;

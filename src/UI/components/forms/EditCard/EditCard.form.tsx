@@ -1,4 +1,5 @@
 //** Dependencies **//
+import Styles from "./EditCard.style";
 import { Button, FloatingLabel, Label, Textarea } from "flowbite-react";
 import useForm from "../../../../core/hooks/useForm";
 import { schemas } from "../../../../data/constants/schemas";
@@ -25,14 +26,14 @@ const EditCardForm = (props: EditCardFormProps) => {
     addCardInitialForm,
     schemas.addCard as unknown as Joi.ObjectSchema,
   );
-  const {updateCard, loadCards, loading} = useCards(cardsDeckRef!);
+  const { updateCard, loadCards, loading } = useCards(cardsDeckRef!);
 
   //** Functions **//
-  const onUpdateCard = async () => {     
+  const onUpdateCard = async () => {
     console.log(form);
-       
+
     setIsLoading(true);
-    await updateCard({...form as ICard, _id:card._id}).then(async () => {
+    await updateCard({ ...(form as ICard), _id: card._id }).then(async () => {
       setIsOpen(false);
       await loadCards();
     });
@@ -47,11 +48,19 @@ const EditCardForm = (props: EditCardFormProps) => {
   }, []);
 
   const getdefaultValue = (key: string) => {
-    if (key === "city" || key === "country" || key === "street" || key === "zip" || key === "houseNumber" || key === "state") return card?.address[key as keyof ICard["address"]];
+    if (
+      key === "city" ||
+      key === "country" ||
+      key === "street" ||
+      key === "zip" ||
+      key === "houseNumber" ||
+      key === "state"
+    )
+      return card?.address[key as keyof ICard["address"]];
     else if (key === "imageUrl") return card?.image.url;
     else if (key === "imageAlt") return card?.image.alt;
     else return card ? card[key as keyof ICard] : "";
-  } ;
+  };
 
   //** JSX **//
   return (
@@ -59,29 +68,27 @@ const EditCardForm = (props: EditCardFormProps) => {
       {addCardFormInputs(errors).map((section, outerIndex) => {
         return (
           <div id="container" ref={containerRef} key={outerIndex}>
-            <Flex
-              className="h-[15vh] gap-10"
-              justify={FlexTypes.Start}
-              items={FlexTypes.Start}
-            >
+            <div className={Styles.container}>
               {section.map((input, innerIndex) => {
                 return (
-                  <Flex key={innerIndex} className="w-[100%]">
+                  <Flex key={innerIndex} className={Styles.section}>
                     {input.type === "textarea" ? (
                       <Flex
                         dir={FlexDirs.Column}
-                        items={FlexTypes.Center}
+                        items={FlexTypes.Start}
                         justify={FlexTypes.Start}
-                        className="h-[fit-content] w-3/4"
                       >
-                        <Label className="h-[auto]" htmlFor={input.id}>
+                        <Label
+                          className={Styles.textareaLabel}
+                          htmlFor={input.id}
+                        >
                           {input.label}
                         </Label>
                         <Textarea
                           className={
                             input.error
-                              ? "mb-0 h-[auto] border-red-500 pb-0 dark:border-red-500"
-                              : ""
+                              ? `${Styles.textarea} ${Styles.error}`
+                              : `${Styles.textarea}`
                           }
                           id={input.id}
                           onChange={updateForm}
@@ -99,8 +106,8 @@ const EditCardForm = (props: EditCardFormProps) => {
                       <FloatingLabel
                         className={
                           input.error
-                            ? "border-red-500 dark:border-red-500"
-                            : ""
+                            ? `${Styles.input} ${Styles.error}`
+                            : Styles.input
                         }
                         id={input.id}
                         defaultValue={getdefaultValue(input.id) as string}
@@ -121,21 +128,21 @@ const EditCardForm = (props: EditCardFormProps) => {
                   </Flex>
                 );
               })}
-            </Flex>
-            <hr className="m-auto my-4 w-3/4" />
+            </div>
+            <hr className={Styles.seperator} />
           </div>
         );
       })}
       <Button
         gradientMonochrome={"info"}
-        className="m-auto mb-1 mt-4"
+        className={Styles.btn}
         onClick={onUpdateCard}
         disabled={chechErrors()}
       >
         Send
       </Button>
       {
-        <p className="pt-2 text-center">
+        <p className={Styles.formError}>
           {chechErrors() && "please fill all the required fields correctly"}
         </p>
       }

@@ -26,7 +26,7 @@ const Profile = () => {
   //** Redux **//
   const userId = useSelector(
     (state: IRootState) => (state.AuthSlice as IAuthState).id,
-  );
+  ) as string;
 
   //** Hooks **//
   const { getUserById } = useAuth();
@@ -50,47 +50,51 @@ const Profile = () => {
       <Flex
         dir={FlexDirs.Column}
         justify={FlexTypes.Start}
-        className="my-4 h-[90vh]"
+        className={Styles.container}
       >
-        <h1 className="my-2 overflow-hidden text-3xl">Profile</h1>
+        <h1 className={Styles.title}>Profile</h1>
         {user && (
           <Flex
             dir={FlexDirs.Column}
             justify={FlexTypes.Start}
             items={FlexTypes.Start}
-            className="mt-4 w-96 rounded-lg border border-violet-300 p-4 shadow-xl shadow-slate-800"
+            className={Styles.card}
           >
             <img
               src={user.image?.url}
               alt={user.image?.alt}
-              className="m-auto h-20 w-20 rounded-full border"
+              className={Styles.img}
             />
-            <p className="mt-4">
+            <p className={Styles.paragraph + " mt-4"}>
               Name: {user.name.first} {user.name.middle} {user.name.last}
             </p>
-            <p>Email: {user.email}</p>
-            <p>Phone: {user.phone}</p>
-            <p>
+            <p className={Styles.paragraph}>Email: {user.email}</p>
+            <p className={Styles.paragraph}>Phone: {user.phone}</p>
+            <p className={Styles.paragraph}>
               Auth Level:{" "}
               {user.isAdmin ? "Admin" : user.isBusiness ? "Business" : "Normal"}
             </p>
-            <p>
+            <p className={Styles.paragraph}>
               Address: {user.address.street} {user.address.houseNumber},{" "}
               {user.address.city}, {user.address.country}
             </p>
-            <div className="mt-4 h-[25vh] w-full">
-              <iframe
-                className={Styles.map}
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-                loading="lazy"
-                src={`
-            https://www.google.com/maps/embed/v1/place?key=${KEY}&q=${user?.address.street}+${user?.address.city}+${user?.address.state}`}
-              ></iframe>
+            <div className={Styles.mapContainer}>
+              {KEY && (
+                <iframe
+                  className={Styles.map}
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                  loading="lazy"
+                  src={`
+                    https://www.google.com/maps/embed/v1/place?key=${KEY}
+                    &q=${user?.address.street}+${user?.address.city}+${user?.address.state}
+                  `}
+                />
+              )}
             </div>
             <Button
               gradientMonochrome={"info"}
-              className="m-auto my-4"
+              className={Styles.btn}
               onClick={onEdit}
             >
               Edit

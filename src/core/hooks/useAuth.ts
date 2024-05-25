@@ -1,4 +1,4 @@
-// *** Imports *** //
+//** Dependencies **//
 import { useCallback } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
@@ -61,4 +61,3 @@ const useAuth = () => {
 }
 
 export default useAuth;
-// Path: src/Core/hooks/useAPI.ts

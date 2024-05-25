@@ -1,4 +1,5 @@
 //** Dependencies **//
+import Styles from "./EditProfile.style";
 import { Button, FloatingLabel } from "flowbite-react";
 import useAuth from "../../../../core/hooks/useAuth";
 import useForm from "../../../../core/hooks/useForm";
@@ -16,7 +17,7 @@ import { editProfileFormInputs } from "../../../../data/constants/formInputs";
 import { IUser } from "../../../../data/types/IUser";
 import { EditProfileProps } from "./EditProfile.props";
 
-//** LoginForm component **//
+//** EditProfile component **//
 const EditProfileForm = (props: EditProfileProps) => {
   //** Props **//
   const { setIsLoading, setIsOpen, user, setUser } = props;
@@ -32,25 +33,18 @@ const EditProfileForm = (props: EditProfileProps) => {
   //** Functions **//
   const onEdit = async () => {
     setIsLoading(true);
-    const normalized = { ...normalizeEditProfile(form) };    
+    const normalized = { ...normalizeEditProfile(form) };
     await updateUser(normalized).then((res) => {
       setIsLoading(false);
       setIsOpen(false);
       setUser(res);
-    })
+    });
   };
 
   const getdefaultValue = (key: string) => {
-    if (
-      key === "city" ||
-      key === "country" ||
-      key === "street" ||
-      key === "zip" ||
-      key === "houseNumber" ||
-      key === "state"
-    )
+    if (Object.keys(user?.address as IUser["address"]).includes(key))
       return user?.address[key as keyof IUser["address"]];
-    if (key === "first" || key === "middle" || key === "last")
+    if (Object.keys(user?.name as IUser["name"]).includes(key))
       return user?.name[key as keyof IUser["name"]];
     else if (key === "imageUrl") return user?.image?.url;
     else if (key === "imageAlt") return user?.image?.alt;
@@ -70,16 +64,18 @@ const EditProfileForm = (props: EditProfileProps) => {
         return (
           <div id="container" ref={containerRef} key={outerIndex}>
             <Flex
-              className="gap-10"
+              className={Styles.container}
               justify={FlexTypes.Start}
               items={FlexTypes.Start}
             >
               {section.map((input, innerIndex) => {
                 return (
-                  <Flex key={innerIndex} className="w-[100%]">
+                  <Flex key={innerIndex} className={Styles.section}>
                     <FloatingLabel
                       className={
-                        input.error ? "border-red-500 dark:border-red-500" : ""
+                        input.error
+                            ? `${Styles.input} ${Styles.error}`
+                            : Styles.input
                       }
                       id={input.id}
                       defaultValue={getdefaultValue(input.id) as string}
@@ -100,20 +96,20 @@ const EditProfileForm = (props: EditProfileProps) => {
                 );
               })}
             </Flex>
-            <hr className="m-10" />
+            <hr className={Styles.seperator} />
           </div>
         );
       })}
       <Button
         gradientMonochrome={"info"}
-        className="m-auto"
+        className={Styles.btn}
         onClick={onEdit}
         disabled={chechErrors()}
       >
         Send
       </Button>
       {
-        <p className="pt-2 text-center">
+        <p className={Styles.formError}>
           {chechErrors() && "please fill all the required fields correctly"}
         </p>
       }

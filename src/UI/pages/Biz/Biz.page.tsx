@@ -1,6 +1,6 @@
 //** Dependencies **//
 import { useLocation } from "react-router-dom";
-import { useEffect, useState, MouseEvent, memo } from "react";
+import { useEffect, useState, MouseEvent } from "react";
 import useAPI from "../../../core/hooks/useAPI";
 import { HttpMethods } from "../../../data/enums/HttpMethods.enum";
 import { ICard } from "../../../data/types/ICard";
@@ -52,65 +52,64 @@ const Biz = () => {
   return (
     <Flex
       dir={FlexDirs.Column}
-      items={FlexTypes.Start}
+      justify={FlexTypes.Start}
       className={Styles.container}
     >
-      <Flex className={Styles.titleContainer}>
-        <h1 className={Styles.title}>{card?.title}</h1>
-      </Flex>
-      <Flex className={Styles.subtitleContainer}>
-        <h3 className={Styles.subtitle}>{card?.subtitle}</h3>
-      </Flex>
-      <img
-        className={Styles.img}
-        alt={card?.image.alt || "Bizcard picture"}
-        src={card.image.url}
-      />
-      <Flex justify={FlexTypes.Start} className={Styles.descriptionContainer}>
-        <h4 className={Styles.description}>{card?.description}</h4>
-      </Flex>
-      <Flex
-        dir={FlexDirs.Column}
-        items={FlexTypes.Start}
-        className={Styles.linksContainer}
-      >
-        <Flex className={Styles.linksContainerItem}>
-          <p>phone:</p>
-          <p id="tel" className={Styles.link} onClick={open}>
-            {card?.phone}
+      <h1 className={Styles.title}>{card.title}</h1>
+      {
+        <Flex
+          dir={FlexDirs.Column}
+          justify={FlexTypes.Start}
+          items={FlexTypes.Start}
+          className={Styles.card}
+        >
+          <h1 className={Styles.subtitle}>{card.subtitle}</h1>
+          <img
+            src={card.image?.url}
+            alt={card.image?.alt}
+            className={Styles.img}
+          />
+          <p className={Styles.description}>{card.description}</p>
+          <p className={Styles.paragraph}>
+            Email:{" "}
+            <span id="mailto" className={Styles.link} onClick={open}>
+              {card.email}
+            </span>
           </p>
-        </Flex>
-        <Flex className={Styles.linksContainerItem}>
-          <p>email:</p>
-          <p id="mailto" className={Styles.link} onClick={open}>
-            {card?.email}
+          <p className={Styles.paragraph}>
+            Phone:{" "}
+            <span id="tel" className={Styles.link} onClick={open}>
+              {card.web}
+            </span>
           </p>
+          <p className={Styles.paragraph}>
+            Website:{" "}
+            <span id="web" className={Styles.link} onClick={open}>
+              {card.web}
+            </span>
+          </p>
+          <p className={Styles.paragraph}>
+            Address: {card.address.street} {card.address.houseNumber},{" "}
+            {card.address.city}, {card.address.country}
+          </p>
+          {KEY && (
+            <div className={Styles.mapContainer}>
+              <iframe
+                className={Styles.map}
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+                loading="lazy"
+                src={`
+                https://www.google.com/maps/embed/v1/place?key=${KEY}
+                &q=${card?.address.street}+${card?.address.city}+${card?.address.state}
+              `}
+              />
+            </div>
+          )}
         </Flex>
-        {card?.web && (
-          <Flex className={Styles.linksContainerItem}>
-            <p>web:</p>
-            <p id="web" className={Styles.link} onClick={open}>
-              {card?.web}
-            </p>
-          </Flex>
-        )}
-      </Flex>
-      <Flex className={Styles.mapContainer}>
-        <div className="google-map h-[50vh] w-[50vw]">
-          <iframe
-            width="100%"
-            height="500"
-            className={Styles.map}
-            referrerPolicy="no-referrer-when-downgrade"
-            allowFullScreen
-            loading="lazy"
-            src={`
-            https://www.google.com/maps/embed/v1/place?key=${KEY}&q=${card?.address.street}+${card?.address.city}+${card?.address.state}`}
-          ></iframe>
-        </div>
-      </Flex>
+      }
     </Flex>
   );
 };
 
-export default memo(Biz);
+export default Biz;

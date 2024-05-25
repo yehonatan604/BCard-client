@@ -3,47 +3,36 @@ import { Style } from "../../../data/classes/Style.class";
 
 const styles: Record<string, Style> = {
     container: new Style({
-        all: `m-auto w-[60vw]`,
-    }),
-    titleContainer: new Style({
-        all: `my-2 w-full`,
+        all: `mb-4 md:mt-4 mt-14 h-[100vh]`,
     }),
     title: new Style({
-        all: `overflow-hidden text-3xl`,
+        all: `my-2 h-[15vh] overflow-hidden text-3xl`,
     }),
-    subtitleContainer: new Style({
-        all: `my-4 w-full`,
+    card: new Style({
+        all: `mt-4 w-[80vw] h-[150vh] rounded-lg border border-violet-300 p-4 shadow-xl shadow-slate-800 md:w-[30vw]`,
     }),
     subtitle: new Style({
-        all: `text-xl`,
+        all: `m-auto mb-4 h-[20vh] md:h-[15vh] overflow-hidden truncate text-2xl`,
     }),
     img: new Style({
-        all: `m-auto my-5 w-3/5 max-h-[35vh] overflow-hidden bg-slate-100 border border-violet-300 shadow-xl shadow-slate-500 rounded-xl`,
-    }),
-    descriptionContainer: new Style({
-        all: `m-auto my-5 w-1/2 bg-slate-100 border border-violet-300 shadow-xl shadow-slate-500 rounded-xl`,
+        all: `m-auto h-3/4 rounded-lg border border-violet-300 object-contain shadow-xl shadow-slate-800`,
     }),
     description: new Style({
-        all: `h-[15vh] p-3 cursor-default`,
+        all: `m-auto my-4 h-[15vh] overflow-auto text-sm`,
     }),
-    linksContainer: new Style({
-        all: `m-auto my-5 w-1/2`,
-    }),
-    linksContainerItem: new Style({
-        all: `gap-2`,
+    paragraph: new Style({
+        all: `text-sm h-[12vh] overflow-hidden truncate w-[100%]`,
     }),
     link: new Style({
-        all: `cursor-pointer hover:text-blue-500`,
+        all: `cursor-pointer text-sm text-blue-500 hover:text-blue-500 md:text-black`,
     }),
     mapContainer: new Style({
-        all: `mb-7 shadow-xl shadow-slate-800 rounded-xl overflow-hidden m-auto  border border-violet-300`,
+        all: `mt-4 h-[70vh] w-full`,
     }),
     map: new Style({
-        all: `h-full  w-full rounded-lg`,
+        all: `h-full w-full rounded-lg`,
     }),
-    warning: new Style({
-        all: `text-3xl text-center m-4`,
-    }),
+   
 }
 
 export default normalized(styles);
