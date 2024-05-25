@@ -24,6 +24,10 @@ const styles: Record<string, Style> = {
     Pagination: new Style({
         all: `mb-6`,
     }),
+    plusIcon: new Style({
+        all: `cursor-pointer fixed right-2 top-[calc(90%-50px)] `,
+        md: `md:right-24 md:top-[calc(80%-50px)]`,
+    }),
 
 }
 

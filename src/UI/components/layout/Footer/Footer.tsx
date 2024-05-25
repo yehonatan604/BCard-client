@@ -10,12 +10,17 @@ const FooterC = () => {
   return (
     <Footer className={Styles.container}>
       <Flex
-        justify={FlexTypes.Center}
+        justify={FlexTypes.Between}
         items={FlexTypes.Center}
         className={Styles.containerInner}
       >
-        <p>Favourites</p>
-        <p>Contact</p>
+        <p className={Styles.paragrapgh}>
+          © 2024 Yehonatan Moravia. All rights reserved.
+        </p>
+        <p className={Styles.paragrapgh}>
+          Contact:
+          <span className={Styles.link}> yehonatan604@gmail.com</span>
+        </p>
       </Flex>
     </Footer>
   );

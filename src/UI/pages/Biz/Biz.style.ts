@@ -3,25 +3,24 @@ import { Style } from "../../../data/classes/Style.class";
 
 const styles: Record<string, Style> = {
     container: new Style({
-        all: "mb-4 mt-14 h-[100vh]",
-        md: "md:mt-4",
+        all: "mb-4 h-[100vh] mt-4",
+        md: `md:h-[1000px]`
     }),
     title: new Style({
-        all: `my-2 h-[15vh] overflow-hidden text-3xl`,
+        all: `h-[15vh] overflow-hidden text-3xl`,
     }),
     card: new Style({
-        all: `mt-4 w-[80vw] h-[150vh] rounded-lg border border-violet-300 p-4 shadow-xl shadow-slate-800`,
+        all: `w-[80vw] h-[150vh] rounded-lg border border-violet-300 p-4 shadow-xl shadow-slate-800`,
         md: `md:w-[30vw]`,
     }),
     subtitle: new Style({
-        all: `m-auto mb-4 h-[20vh] overflow-hidden truncate text-2xl`,
-        md: `md:h-[15vh]`
+        all: `m-auto h-[20vh] overflow-hidden truncate text-2xl`,
     }),
     img: new Style({
-        all: `m-auto h-3/4 rounded-lg border border-violet-300 object-contain shadow-xl shadow-slate-800`,
+        all: `m-auto h-3/4 rounded-lg border border-violet-300 object-contain shadow-xl shadow-slate-600 dark:shadow-slate-500`,
     }),
     description: new Style({
-        all: `m-auto my-4 h-[15vh] overflow-auto text-sm`,
+        all: `m-auto mt-5 h-[15vh] overflow-auto text-sm`,
     }),
     paragraph: new Style({
         all: `text-sm h-[12vh] overflow-hidden truncate w-[100%]`,
@@ -37,7 +36,7 @@ const styles: Record<string, Style> = {
     map: new Style({
         all: `h-full w-full rounded-lg`,
     }),
-   
+
 }
 const normalizedStyles = normalized(styles);
 console.log(normalizedStyles);

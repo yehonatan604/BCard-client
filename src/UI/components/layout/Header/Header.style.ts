@@ -18,23 +18,28 @@ const styles: Record<string, Style> = {
         all: `bg-dark`
     }),
     bcardContainer: new Style({
-        all: `mb-2 flex justify-center w-[fit-content]`,
-        md: `md:mr-10`
+        all: `flex justify-center w-[fit-content]`,
+        md: `md:mr-10 md:mb-2`
     }),
     bcard: new Style({
-        all: `font-semibold text-2xl text-slate-700`,
-        maxMd: `max-md:m-auto max-md:my-3`,
+        all: `font-semibold text-2xl text-slate-800 m-auto my-1`,
+        md: `md:my-3`,
         hover: `hover:text-white`,
         dark: `dark:text-slate-400 dark:hover:text-white`
     }),
     search: {
-        all: `p-2`,
+        all: `p-2 mt-3`,
+        md: `md:mt-0`
     },
+    hamburger: new Style({
+        all: `mb-[.5em]`,
+    }),
     navLinksContainer: {
-        all: `flex gap-10 flex-wrap`,
-        md: `md:mr-10`
+        all: `flex gap-5 flex-wrap mb-4`,
+        md: `md:mr-10 md:gap-10 md:mb-0`
     },
     navLink: new Style({
+        all: `font-semibold text-slate-800 p-0 text-center border-0`,
         md: `md:hover:text-white`,
     }),
     rightContainer: new Style({

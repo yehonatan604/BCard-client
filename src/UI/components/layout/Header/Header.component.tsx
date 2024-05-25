@@ -78,7 +78,7 @@ const Header = () => {
           >
             <h1 className={`${Styles.bcard}`}>B-Card</h1>
           </Navbar.Brand>
-          <Navbar.Toggle />
+          <Navbar.Toggle className={Styles.hamburger} />
           <Navbar.Collapse className="w-[35vw]">
             <Flex className={Styles.navLinksContainer}>
               {auth.links.map((link: string, index: number) => {

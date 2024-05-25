@@ -1,5 +1,5 @@
 //** Dependencies **//
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { Pagination, Spinner, useThemeMode } from "flowbite-react";
 import Flex from "../Flex/Flex.component";
 import { ICard } from "../../../../data/types/ICard";
@@ -11,7 +11,7 @@ import FormModal from "../../../modals/FormModal/Form.modal";
 import AddCardForm from "../../forms/AddCard/AddCard.form";
 import useCards from "../../../../core/hooks/useCards";
 
-//** CardsDeck component **//
+//** CardsDeck Component **//
 const CardsDeck = (props: CardsDeckProps) => {
   // ** Props **//
   const { title, subtitle } = props;
@@ -19,6 +19,20 @@ const CardsDeck = (props: CardsDeckProps) => {
   //** State **//
   const [showAddCard, setShowAddCard] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(true);
+
+  const handleResize = useCallback(() => {
+    setIsMobile(window.innerWidth <= 768);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [handleResize]);
 
   //** Hooks **//
   let cardsDeck = useRef<ICard[]>([]);
@@ -39,9 +53,9 @@ const CardsDeck = (props: CardsDeckProps) => {
       {canShowPlusIcon && (
         <PiPlusCircleFill
           onClick={() => setShowAddCard(true)}
-          color={mode === "light" ? "#0259AB" : "white"}
-          className="fixed right-24 top-[calc(80%-50px)] cursor-pointer"
-          size={100}
+          color={mode === "light" ? "#3f83f8" : "white"}
+          className={Styles.plusIcon}
+          size={!isMobile ? 100 : 50}
         />
       )}
       <div className={Styles.titleContainer}>
@@ -77,10 +91,13 @@ const CardsDeck = (props: CardsDeckProps) => {
       </Flex>
       <Flex className={Styles.Pagination}>
         <Pagination
-          layout="navigation"
+          layout={isMobile ? "navigation" : "pagination"}
           currentPage={currentPage}
           totalPages={100}
           onPageChange={onPageChange}
+          nextLabel=""
+          previousLabel=""
+          showIcons
         />
       </Flex>
       <FormModal
