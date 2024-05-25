@@ -5,7 +5,7 @@ import Flex from "../../components/shared/Flex/Flex.component";
 import { FlexDirs } from "../../../data/enums/FlexDirs.enum";
 import { RouteGuardProps } from "./RouteGuard.props";
 
-//** RouteGuard component **//
+//** RouteGuard Component **//
 const RouteGuard = (props: RouteGuardProps) => {
   //** Props **//
   const { children, authLevel, minimumLevel } = props;

@@ -31,7 +31,7 @@ export type CardSingleProps = {
   cardsDeckRef: MutableRefObject<ICard[]>;
 };
 
-//** CardSingle component **//
+//** CardSingle Component **//
 const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
   //** State **//
   const [iconsColor, setIconstColor] = useState<"black" | "white">("black");

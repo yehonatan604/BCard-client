@@ -10,7 +10,7 @@ import { FlexDirs } from "../../../data/enums/FlexDirs.enum";
 import { FlexTypes } from "../../../data/enums/FlexTypes.enum";
 import Styles from "./Biz.style";
 
-//** Biz component **//
+//** Biz Page **//
 const Biz = () => {
   const { VITE_GOOGLE_MAPS_API_KEY: KEY } = import.meta.env;
 
@@ -44,9 +44,6 @@ const Biz = () => {
       }
     })();
   }, [id, sendApiRequest]);
-
-  console.log(Styles.card);
-  
 
   //** JSX **//
   if (!card)

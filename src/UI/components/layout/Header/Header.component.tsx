@@ -23,7 +23,7 @@ import RegisterForm from "../../forms/Register/Register.form";
 import FormModal from "../../../modals/FormModal/Form.modal";
 import AreYouSureModal from "../../../modals/AreYouSureModal/AreYouSure.modal";
 
-//** Header component **//
+//** Header Component **//
 const Header = () => {
   //** State **//
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);

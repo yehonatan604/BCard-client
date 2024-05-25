@@ -14,7 +14,7 @@ import Biz from "../../pages/Biz/Biz.page";
 import Profile from "../../pages/Profile/Profile.page";
 import { OutletProps } from "./Outlet.props";
 
-//** AppRoutes component **//
+//** AppRoutes Component **//
 const Outlet = ({ className }: OutletProps) => {
   //** Redux **//
   const auth = useSelector<IAuthState>(

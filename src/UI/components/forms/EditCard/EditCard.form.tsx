@@ -15,7 +15,7 @@ import useCards from "../../../../core/hooks/useCards";
 import { ICard } from "../../../../data/types/ICard";
 import { deNormalizeCard } from "../../../../core/helpers/formNormalize.helper";
 
-//** EditCardForm component **//
+//** EditCardForm Component **//
 const EditCardForm = (props: EditCardFormProps) => {
   //** Props **//
   const { setIsLoading, setIsOpen, cardsDeckRef, card } = props;

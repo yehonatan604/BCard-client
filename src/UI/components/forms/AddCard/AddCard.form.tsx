@@ -14,7 +14,7 @@ import useCards from "../../../../core/hooks/useCards";
 import { ICard } from "../../../../data/types/ICard";
 import Joi from "joi";
 
-//** AddCardForm component **//
+//** AddCardForm Component **//
 const AddCardForm = (props: AddCardFormProps) => {
   //** Props **//
   const { setIsLoading, setIsOpen, cardsDeckRef } = props;
@@ -59,7 +59,10 @@ const AddCardForm = (props: AddCardFormProps) => {
                         items={FlexTypes.Start}
                         justify={FlexTypes.Start}
                       >
-                        <Label className={Styles.textareaLabel} htmlFor={input.id}>
+                        <Label
+                          className={Styles.textareaLabel}
+                          htmlFor={input.id}
+                        >
                           {input.label}
                         </Label>
                         <Textarea

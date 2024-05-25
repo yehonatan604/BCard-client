@@ -4,7 +4,7 @@ import Flex from "../../shared/Flex/Flex.component";
 import { FlexTypes } from "../../../../data/enums/FlexTypes.enum";
 import Styles from "./Footer.style";
 
-//** Footer component **//
+//** Footer Component **//
 const FooterC = () => {
   //** JSX **//
   return (

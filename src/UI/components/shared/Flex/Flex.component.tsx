@@ -1,7 +1,7 @@
 //** Dependencies **//
 import { FlexProps } from "./Flex.props";
 
-//** Flex component **//
+//** Flex Component **//
 const Flex = (props: FlexProps) => {
   //** Props **//
   const {

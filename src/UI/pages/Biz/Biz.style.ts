@@ -38,7 +38,5 @@ const styles: Record<string, Style> = {
     }),
 
 }
-const normalizedStyles = normalized(styles);
-console.log(normalizedStyles);
 
-export default normalizedStyles;
+export default normalized(styles);

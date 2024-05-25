@@ -17,7 +17,7 @@ import { editProfileFormInputs } from "../../../../data/constants/formInputs";
 import { IUser } from "../../../../data/types/IUser";
 import { EditProfileProps } from "./EditProfile.props";
 
-//** EditProfile component **//
+//** EditProfile Component **//
 const EditProfileForm = (props: EditProfileProps) => {
   //** Props **//
   const { setIsLoading, setIsOpen, user, setUser } = props;
@@ -74,8 +74,8 @@ const EditProfileForm = (props: EditProfileProps) => {
                     <FloatingLabel
                       className={
                         input.error
-                            ? `${Styles.input} ${Styles.error}`
-                            : Styles.input
+                          ? `${Styles.input} ${Styles.error}`
+                          : Styles.input
                       }
                       id={input.id}
                       defaultValue={getdefaultValue(input.id) as string}

@@ -11,7 +11,7 @@ import Flex from "../../shared/Flex/Flex.component";
 import { FlexTypes } from "../../../../data/enums/FlexTypes.enum";
 import { LoginFormProps } from "./Login.props";
 
-//** LoginForm component **//
+//** LoginForm Component **//
 const LoginForm = ({ setIsLoading, setIsOpen }: LoginFormProps) => {
   //** Props **//
 

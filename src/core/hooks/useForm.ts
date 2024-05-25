@@ -11,9 +11,7 @@ const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) =>
     const [form, setForm] = useState({ ...initialState });
 
     //** Functions **//
-    const chechErrors = () => {     
-        console.log(errors);
-           
+    const chechErrors = () => {
         let res;
         for (const key in errors) {
             if (errors[key] !== "") {
@@ -29,9 +27,7 @@ const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) =>
     const updateForm = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const id: string = e.target.id;
         const value = e.target.value;
-        console.log(id, value);
-        
-            
+
         Promise.resolve(
             setForm({
                 ...form,
@@ -42,7 +38,7 @@ const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) =>
                 { [id]: value },
                 schema[id as keyof typeof schema] as Joi.ObjectSchema,
             );
-            
+
             if (validation.error) {
                 setErrors((old) => ({
                     ...old,
@@ -54,7 +50,7 @@ const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) =>
                     [e.target.id]: "",
                 }));
             }
-            
+
             const passwordMatch = form.password === form.confirmPassword;
             if (id === "confirmPassword" && !passwordMatch) {
                 setErrors((old) => ({

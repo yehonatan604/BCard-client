@@ -1,7 +1,7 @@
 // ** Dependencies **//
 import CardsDeck from "../../components/shared/CardsDeck/CardsDeck.component";
 
-//** Favourites page **//
+//** Favourites Page **//
 const Favourites = () => {
   //** Variables **//
   const title = "Favourites";

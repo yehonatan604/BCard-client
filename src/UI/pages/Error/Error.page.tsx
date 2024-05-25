@@ -6,7 +6,7 @@ import { Button } from "flowbite-react";
 import { useNavigate } from "react-router-dom";
 import Styles from "./Error.style";
 
-//** Error page **//
+//** Error Page **//
 const Error = () => {
   //** Hooks **//
   const nav = useNavigate();

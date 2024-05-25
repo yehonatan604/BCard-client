@@ -1,7 +1,7 @@
 // ** Dependencies **//
 import CardsDeck from "../../components/shared/CardsDeck/CardsDeck.component";
 
-//** MyCards page **//
+//** MyCards Page **//
 const MyCards = () => {
   //** Variables **//
   const title = "My Cards";

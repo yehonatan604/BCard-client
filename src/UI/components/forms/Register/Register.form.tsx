@@ -14,7 +14,7 @@ import { registerationFormInputs } from "../../../../data/constants/formInputs";
 import { IUser } from "../../../../data/types/IUser";
 import { RegisterFormProps } from "./Register.props";
 
-//** LoginForm component **//
+//** LoginForm Component **//
 const RegisterForm = (props: RegisterFormProps) => {
   //** Props **//
   const { setIsLoading, setIsOpen } = props;
@@ -58,14 +58,14 @@ const RegisterForm = (props: RegisterFormProps) => {
             >
               {section.map((input, innerIndex) => {
                 console.log(input);
-                
+
                 return (
                   <Flex key={innerIndex} className={Styles.section}>
                     <FloatingLabel
                       className={
-                        input.error 
+                        input.error
                           ? `${Styles.input} ${Styles.error}`
-                          : Styles.input 
+                          : Styles.input
                       }
                       id={input.id}
                       type={input.type}
@@ -99,7 +99,7 @@ const RegisterForm = (props: RegisterFormProps) => {
         />
         <p>is business</p>
       </Flex>
-      <hr className={Styles.seperator}/>
+      <hr className={Styles.seperator} />
       <Button
         gradientMonochrome={"info"}
         className={Styles.btn}
