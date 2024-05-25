@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BiSearch } from "react-icons/bi";
 import { searchActions } from "../../../../core/store/SearchSlice";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
 import Styles from "./Header.style";
 import LoginForm from "../../forms/Login/Login.form";
 import { IRootState } from "../../../../data/types/IRootState";
@@ -22,6 +22,7 @@ import { correctRoute } from "../../../../core/helpers/Route.helper";
 import RegisterForm from "../../forms/Register/Register.form";
 import FormModal from "../../../modals/FormModal/Form.modal";
 import AreYouSureModal from "../../../modals/AreYouSureModal/AreYouSure.modal";
+import noPic from "../../../../assets/user.png";
 
 //** Header Component **//
 const Header = () => {
@@ -108,7 +109,18 @@ const Header = () => {
               <DarkThemeToggle className={Styles.themeToggle} />
             </Navbar.Brand>
             <Navbar.Brand as={Link} to={"/profile"}>
-              <img src={userImg} alt="user's image" className={Styles.img} />
+              <img
+                src={auth.img ? auth.img.url : userImg}
+                alt="user's image"
+                className={Styles.img}
+                onError={(e: SyntheticEvent<HTMLImageElement, Event>) => {
+                  e.currentTarget.src = noPic;
+                  e.currentTarget.onerror = null;
+                }}
+                onLoad={(e: SyntheticEvent<HTMLImageElement, Event>) => {
+                  e.currentTarget.onerror = null;
+                }}
+              />
             </Navbar.Brand>
 
             {auth.isLoggedIn && (

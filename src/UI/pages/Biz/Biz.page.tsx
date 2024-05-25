@@ -1,6 +1,6 @@
 //** Dependencies **//
 import { useLocation } from "react-router-dom";
-import { useEffect, useState, MouseEvent } from "react";
+import { useEffect, useState, MouseEvent, SyntheticEvent } from "react";
 import useAPI from "../../../core/hooks/useAPI";
 import { HttpMethods } from "../../../data/enums/HttpMethods.enum";
 import { ICard } from "../../../data/types/ICard";
@@ -9,6 +9,7 @@ import Flex from "../../components/shared/Flex/Flex.component";
 import { FlexDirs } from "../../../data/enums/FlexDirs.enum";
 import { FlexTypes } from "../../../data/enums/FlexTypes.enum";
 import Styles from "./Biz.style";
+import noPic from "../../../assets/noPic.png";
 
 //** Biz Page **//
 const Biz = () => {
@@ -68,6 +69,13 @@ const Biz = () => {
             src={card.image?.url}
             alt={card.image?.alt}
             className={Styles.img}
+            onError={(e: SyntheticEvent<HTMLImageElement, Event>) => {
+              e.currentTarget.src = noPic;
+              e.currentTarget.onerror = null;
+            }}
+            onLoad={(e: SyntheticEvent<HTMLImageElement, Event>) => {
+              e.currentTarget.onerror = null;
+            }}
           />
           <p className={Styles.description}>{card.description}</p>
           <p className={Styles.paragraph}>

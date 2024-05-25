@@ -1,5 +1,5 @@
 //** Dependencies **//
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState } from "react";
 import { Pagination, Spinner, useThemeMode } from "flowbite-react";
 import Flex from "../Flex/Flex.component";
 import { ICard } from "../../../../data/types/ICard";
@@ -10,6 +10,7 @@ import { PiPlusCircleFill } from "react-icons/pi";
 import FormModal from "../../../modals/FormModal/Form.modal";
 import AddCardForm from "../../forms/AddCard/AddCard.form";
 import useCards from "../../../../core/hooks/useCards";
+import useWindow from "../../../../core/hooks/useWindow";
 
 //** CardsDeck Component **//
 const CardsDeck = (props: CardsDeckProps) => {
@@ -19,20 +20,7 @@ const CardsDeck = (props: CardsDeckProps) => {
   //** State **//
   const [showAddCard, setShowAddCard] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isMobile, setIsMobile] = useState<boolean>(true);
-
-  const handleResize = useCallback(() => {
-    setIsMobile(window.innerWidth <= 768);
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-
-    // Cleanup
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [handleResize]);
+  const [isMobile] = useWindow();
 
   //** Hooks **//
   let cardsDeck = useRef<ICard[]>([]);
@@ -93,7 +81,7 @@ const CardsDeck = (props: CardsDeckProps) => {
         <Pagination
           layout={isMobile ? "navigation" : "pagination"}
           currentPage={currentPage}
-          totalPages={100}
+          totalPages={Math.ceil(cards.length / 9)}
           onPageChange={onPageChange}
           nextLabel=""
           previousLabel=""

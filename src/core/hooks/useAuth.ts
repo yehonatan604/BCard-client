@@ -18,10 +18,11 @@ const useAuth = () => {
     const { data, error, loading, sendApiRequest } = useAPI();
 
     // Login
-    const login = useCallback((token: string) => {
+    const login = useCallback(async (token: string) => {
         const decodedToken = decode(token) as unknown as IToken;
         const authLevel = getAuthLevel(decodedToken);
-        dispatch(authActions.login({ id: decodedToken._id, authLevel: authLevel }));
+        const user = await getUserById(decodedToken._id) as IUser;
+        dispatch(authActions.login({ id: decodedToken._id, authLevel: authLevel, img: user.image }));
     }, [dispatch]);
 
     // Try login

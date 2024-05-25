@@ -5,4 +5,8 @@ export type IAuthState = {
     id: string;
     authLevel: AuthLevels;
     links: string[];
+    img: {
+        url: string;
+        alt: string;
+    }
 }

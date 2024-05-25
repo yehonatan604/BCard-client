@@ -1,3 +1,3 @@
-export interface IFuncVoid {
+export type IFuncVoid = {
     (): void;
 }

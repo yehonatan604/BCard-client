@@ -8,7 +8,11 @@ const initialState: IAuthState = {
     isLoggedIn: false,
     id: '',
     authLevel: AuthLevels.Guest,
-    links: guestLinks
+    links: guestLinks,
+    img: {
+        url: '',
+        alt: ''
+    }
 }
 
 const AuthSlice = createSlice({
@@ -20,12 +24,17 @@ const AuthSlice = createSlice({
             state.id = action.payload.id;
             state.authLevel = action.payload.authLevel;
             state.links = getLinks(action.payload.authLevel);
+            state.img = action.payload.img;
         },
         logout: (state) => {
             state.isLoggedIn = false;
             state.id = '';
             state.authLevel = AuthLevels.Guest;
             state.links = guestLinks;
+            state.img = {
+                url: '',
+                alt: ''
+            };
         },
 
     }

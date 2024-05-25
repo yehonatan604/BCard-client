@@ -57,8 +57,8 @@ const styles: Record<string, Style> = {
         focus: `focus:ring-0`,
     }),
     img: new Style({
-        all: `rounded-full m-auto w-[10vw]`,
-        md: `md:w-[4vw]`,
+        all: `rounded-full m-auto w-[6vw]`,
+        md: `md:w-[2vw]`,
         hover: `hover:scale-[90%]`,
     }),
     authContainer: new Style({

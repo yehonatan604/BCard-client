@@ -55,7 +55,6 @@ export const normalizeCard = (card: any) => {
 
 // this function is used to normalize the user object to be used in the edit profile form
 export const normalizeEditProfile = (user: any) => {
-    
     return {
         name: {
             first: user.first,

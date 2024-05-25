@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import useAuth from "../../../core/hooks/useAuth";
 import { IRootState } from "../../../data/types/IRootState";
 import { IAuthState } from "../../../data/types/IAuthState";
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { IUser } from "../../../data/types/IUser";
 import Flex from "../../components/shared/Flex/Flex.component";
 import { FlexDirs } from "../../../data/enums/FlexDirs.enum";
@@ -12,6 +12,7 @@ import Styles from "./Profile.style";
 import { Button } from "flowbite-react";
 import FormModal from "../../modals/FormModal/Form.modal";
 import EditProfileForm from "../../components/forms/EditProfile/EditProfile.form";
+import noPic from "../../../assets/user.png";
 
 //** Profile Page **//
 const Profile = () => {
@@ -64,6 +65,13 @@ const Profile = () => {
               src={user.image?.url}
               alt={user.image?.alt}
               className={Styles.img}
+              onError={(e: SyntheticEvent<HTMLImageElement, Event>) => {
+                e.currentTarget.src = noPic;
+                e.currentTarget.onerror = null;
+              }}
+              onLoad={(e: SyntheticEvent<HTMLImageElement, Event>) => {
+                e.currentTarget.onerror = null;
+              }}
             />
             <p className={Styles.paragraph + " mt-4"}>
               Name: {user.name.first} {user.name.middle} {user.name.last}

@@ -24,7 +24,7 @@ const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) =>
         return res;
     }
 
-    const updateForm = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const updateForm = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | any) => {
         const id: string = e.target.id;
         const value = e.target.value;
 
@@ -34,36 +34,43 @@ const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) =>
                 [id]: value,
             }),
         ).then(() => {
+            const comma =
+                form.password === form.confirmPassword ? "" : ", ";
+            const passwordMatch =
+                form.password === form.confirmPassword ? "" : `${comma}Passwords do not match`;
             const validation = validate(
                 { [id]: value },
                 schema[id as keyof typeof schema] as Joi.ObjectSchema,
             );
 
+
             if (validation.error) {
-                setErrors((old) => ({
-                    ...old,
-                    [e.target.id]: validation.error?.message,
-                }));
+                if (id === "confirmPassword") {
+                    setErrors((old) => ({
+                        ...old,
+                        [e.target.id]: validation.error?.message,
+                        confirmPassword: `${validation.error?.message}${passwordMatch}`,
+                    }));
+                } else {
+                    setErrors((old) => ({
+                        ...old,
+                        [e.target.id]: validation.error?.message,
+                    }));
+                }
             } else {
-                setErrors((old) => ({
-                    ...old,
-                    [e.target.id]: "",
-                }));
+                if (id === "confirmPassword") {
+                    setErrors((old) => ({
+                        ...old,
+                        [e.target.id]: "",
+                        confirmPassword: passwordMatch,
+                    }));
+                } else {
+                    setErrors((old) => ({
+                        ...old,
+                        [e.target.id]: "",
+                    }));
+                }
             }
-
-            const passwordMatch = form.password === form.confirmPassword;
-            if (id === "confirmPassword" && !passwordMatch) {
-                setErrors((old) => ({
-                    ...old,
-                    confirmPassword: "Passwords do not match",
-                }));
-            } else if (id === "confirmPassword" && passwordMatch) {
-                setErrors((old) => ({
-                    ...old,
-                    confirmPassword: "",
-                }));
-            }
-
         });
     };
 

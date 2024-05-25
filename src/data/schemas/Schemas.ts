@@ -9,7 +9,7 @@ export const EmailSchema = Joi.object({
         .required(),
 });
 
-export const PasswordSchema = (key:string) => Joi.object({
+export const PasswordSchema = (key: string) => Joi.object({
     [key]: Joi.string()
         .min(9)
         .ruleset.regex(passwordRegex)
@@ -30,30 +30,30 @@ export const PhoneSchema = Joi.object({
         .required()
 });
 
-export const UrlSchema = (key:string)=>Joi.object({
+export const UrlSchema = (key: string) => Joi.object({
     [key]: Joi.string()
         .min(10)
         .ruleset.regex(urlRegex)
         .rule({
-            message: "url must be a valid"
+            message: "Url must be a valid Url"
         })
         .allow("", null)
 });
 
-export const IntegerSchema = (key:string)=> Joi.object({
+export const IntegerSchema = (key: string) => Joi.object({
     [key]: Joi.number()
         .integer()
         .required()
 });
 
-export const StringSchema =(key:string)=> Joi.object({
+export const StringSchema = (key: string) => Joi.object({
     [key]: Joi.string()
         .min(2)
         .max(256)
         .required()
 });
 
-export const StringAlloWSchema = (key:string)=>Joi.object({
+export const StringAlloWSchema = (key: string) => Joi.object({
     [key]: Joi.string()
         .min(2)
         .max(256)

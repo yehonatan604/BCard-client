@@ -13,7 +13,7 @@ import { FlexDirs } from "../../../../data/enums/FlexDirs.enum";
 import { EditCardFormProps } from "./EditCard.props";
 import useCards from "../../../../core/hooks/useCards";
 import { ICard } from "../../../../data/types/ICard";
-import { deNormalizeCard } from "../../../../core/helpers/formNormalize.helper";
+import { deNormalizeCard } from "../../../../core/helpers/Form.helper";
 
 //** EditCardForm Component **//
 const EditCardForm = (props: EditCardFormProps) => {

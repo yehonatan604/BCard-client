@@ -7,7 +7,7 @@ import { schemas } from "../../../../data/constants/schemas";
 import Joi from "joi";
 import Flex from "../../shared/Flex/Flex.component";
 import { FlexTypes } from "../../../../data/enums/FlexTypes.enum";
-import { normalizeUser } from "../../../../core/helpers/formNormalize.helper";
+import { normalizeUser } from "../../../../core/helpers/Form.helper";
 import { registerInitialForm } from "../../../../data/constants/initialForms";
 import { useEffect, useRef, useState } from "react";
 import { registerationFormInputs } from "../../../../data/constants/formInputs";
@@ -72,6 +72,7 @@ const RegisterForm = (props: RegisterFormProps) => {
                       variant="filled"
                       label={input.label}
                       onInput={(e: any) => updateForm(e)}
+                      onKeyUp={(e: any) => updateForm(e)}
                       onBlur={updateForm}
                       autoFocus
                       helperText={
@@ -89,7 +90,7 @@ const RegisterForm = (props: RegisterFormProps) => {
           </div>
         );
       })}
-      <Flex className={Styles.chkboxContainer} justify={FlexTypes.Start}>
+      <Flex className={Styles.chkboxContainer}>
         <Checkbox
           id="isBusiness"
           checked={isBiz}

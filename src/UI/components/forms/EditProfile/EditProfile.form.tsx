@@ -10,7 +10,7 @@ import { FlexTypes } from "../../../../data/enums/FlexTypes.enum";
 import {
   deNormalizeUser,
   normalizeEditProfile,
-} from "../../../../core/helpers/formNormalize.helper";
+} from "../../../../core/helpers/Form.helper";
 import { editProfileInitialForm } from "../../../../data/constants/initialForms";
 import { useEffect, useRef } from "react";
 import { editProfileFormInputs } from "../../../../data/constants/formInputs";

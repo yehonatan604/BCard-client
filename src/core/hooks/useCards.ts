@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { IAuthState } from "../../data/types/IAuthState";
 import { IRootState } from "../../data/types/IRootState";
 import { useLocation, useNavigate } from "react-router-dom";
-import { normalizeCard } from "../helpers/formNormalize.helper";
+import { normalizeCard } from "../helpers/Form.helper";
 import { toast } from "react-toastify";
 import { AuthLevels } from "../../data/enums/AuthLevels.enum";
 

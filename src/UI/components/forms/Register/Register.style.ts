@@ -23,7 +23,7 @@ const styles: Record<string, Style> = {
         md: `md:m-10`
     }),
     chkboxContainer: new Style({
-        all: `ml-1 gap-3`,
+        all: `gap-3`,
     }),
     chkBox: new Style({
         all: `ml-1`,

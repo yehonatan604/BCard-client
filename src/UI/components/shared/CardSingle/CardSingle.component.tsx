@@ -8,7 +8,7 @@ import {
   PiHeartFill,
 } from "react-icons/pi";
 import { ICard } from "../../../../data/types/ICard";
-import { MutableRefObject, useEffect, useState } from "react";
+import { MutableRefObject, SyntheticEvent, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { IAuthState } from "../../../../data/types/IAuthState";
 import { IRootState } from "../../../../data/types/IRootState";
@@ -24,6 +24,7 @@ import useCards from "../../../../core/hooks/useCards";
 import { useNavigate } from "react-router-dom";
 import FormModal from "../../../modals/FormModal/Form.modal";
 import EditCardForm from "../../forms/EditCard/EditCard.form";
+import useWindow from "../../../../core/hooks/useWindow";
 
 export type CardSingleProps = {
   card: ICard;
@@ -37,6 +38,8 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
   const [iconsColor, setIconstColor] = useState<"black" | "white">("black");
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [iconsSize, setIconsSize] = useState<number>(20);
+  const [isMobile] = useWindow();
 
   //** Hooks **//
   const { sendApiRequest } = useAPI();
@@ -51,8 +54,9 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
 
   //** Effects **//
   useEffect(() => {
+    setIconsSize(isMobile ? 20 : 30);
     setIconstColor(mode === "dark" ? "white" : "black");
-  }, [mode, card, auth]);
+  }, [mode, card, auth, isMobile]);
 
   //** Functions **//
   const handleLike = async () => {
@@ -82,7 +86,7 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
 
   //** Variables **//
   const heartProps = {
-    size: 30,
+    size: iconsSize,
     color: iconsColor,
     onClick: handleLike,
     className: Styles.icon,
@@ -108,8 +112,11 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
             src={card.image.url}
             alt={card.image.alt}
             className={Styles.cardImg}
-            onError={(e) => {
+            onError={(e: SyntheticEvent<HTMLImageElement, Event>) => {
               e.currentTarget.src = noPic;
+              e.currentTarget.onerror = null;
+            }}
+            onLoad={(e: SyntheticEvent<HTMLImageElement, Event>) => {
               e.currentTarget.onerror = null;
             }}
             onClick={navToBiz}
@@ -131,7 +138,7 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
             justify={auth.authLevel > 1 ? FlexTypes.Between : FlexTypes.Center}
           >
             <PiPhone
-              size={30}
+              size={iconsSize}
               color={iconsColor}
               className={Styles.icon}
               onClick={handleCall}
@@ -140,13 +147,13 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
             {auth.authLevel > 1 && auth.id === card.user_id && (
               <>
                 <PiPencil
-                  size={30}
+                  size={iconsSize}
                   color={iconsColor}
                   className={Styles.icon}
                   onClick={editCard}
                 />
                 <PiTrash
-                  size={30}
+                  size={iconsSize}
                   color={iconsColor}
                   className={Styles.icon}
                   onClick={handleDelete}
