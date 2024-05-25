@@ -7,14 +7,16 @@ const styles: Record<string, Style> = {
         hover: `hover:scale-[99%]`,
     }),
     cardImg: new Style({
-        all: `w-full h-full object-cover rounded-t-[20px] m-autoborder border-violet-300 shadow-xl shadow-slate-800`,
+        all: `w-full h-full object-cover rounded-t-[20px] m-autoborder border-violet-300 shadow-lg shadow-slate-600`,
     }),
     cardTitle: {
-        all: `text-2xl h-[60vh] font-bold tracking-tight text-gray-900 truncate text-wrap`,
+        all: `text-2xl h-[65vh] font-bold tracking-tight text-gray-900 truncate text-wrap`,
+        maxMd: `max-md:text-sm`,
         dark: `dark:text-white `
     },
     cardSubtitle: new Style({
-        all: `mt-3 h-[40vh] text-center font-bold tracking-tight text-gray-900 truncate`,
+        all: `mt-3 h-[45vh] text-center font-bold tracking-tight text-gray-900 truncate`,
+        maxMd: `max-md:text-xs max-md:mt-1`,
         dark: `dark:text-white`,
     }),
     cardDescription: new Style({

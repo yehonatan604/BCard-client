@@ -21,12 +21,14 @@ import { getToken } from "../../../../core/helpers/Storage.helper";
 import { correctRoute } from "../../../../core/helpers/Route.helper";
 import RegisterForm from "../../forms/Register/Register.form";
 import FormModal from "../../../modals/FormModal/Form.modal";
+import AreYouSureModal from "../../../modals/AreYouSureModal/AreYouSure.modal";
 
 //** Header component **//
 const Header = () => {
   //** State **//
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState<boolean>(false);
+  const [isLogoutOpen, setIsLogoutOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   //** Redux **//
@@ -119,7 +121,7 @@ const Header = () => {
                 <Navbar.Link
                   as={"button"}
                   className={Styles.authLink}
-                  onClick={logout}
+                  onClick={() => setIsLogoutOpen(true)}
                 >
                   Logout
                 </Navbar.Link>
@@ -179,6 +181,13 @@ const Header = () => {
           setIsOpen={setIsRegisterOpen}
         />
       </FormModal>
+      <AreYouSureModal
+        isOpen={isLogoutOpen}
+        setIsOpen={setIsLogoutOpen}
+        title="Logout"
+        question={"Are you sure you want to log out?"}
+        onYes={logout}
+      />
     </>
   );
 };

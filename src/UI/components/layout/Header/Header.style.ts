@@ -52,7 +52,7 @@ const styles: Record<string, Style> = {
         focus: `focus:ring-0`,
     }),
     img: new Style({
-        all: `rounded-full m-auto w-[3vw]`,
+        all: `rounded-full m-auto w-[10vw]`,
         md: `md:w-[4vw]`,
         hover: `hover:scale-[90%]`,
     }),

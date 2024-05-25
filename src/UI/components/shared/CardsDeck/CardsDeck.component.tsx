@@ -1,6 +1,6 @@
 //** Dependencies **//
 import { useRef, useState } from "react";
-import { Spinner, useThemeMode } from "flowbite-react";
+import { Pagination, Spinner, useThemeMode } from "flowbite-react";
 import Flex from "../Flex/Flex.component";
 import { ICard } from "../../../../data/types/ICard";
 import CardSingle from "../CardSingle/CardSingle.component";
@@ -23,10 +23,15 @@ const CardsDeck = (props: CardsDeckProps) => {
   //** Hooks **//
   let cardsDeck = useRef<ICard[]>([]);
   const { mode } = useThemeMode();
-  const { cards, loading, canShowPlusIcon, getData, loadCards } = useCards(
-    cardsDeck,
-    true,
-  );
+  const {
+    cards,
+    loading,
+    canShowPlusIcon,
+    getData,
+    loadCards,
+    currentPage,
+    onPageChange,
+  } = useCards(cardsDeck, true);
 
   //** JSX **//
   return (
@@ -45,16 +50,21 @@ const CardsDeck = (props: CardsDeckProps) => {
       </div>
       <Flex className={Styles.container}>
         {cards &&
-          cards.map((card: ICard, index) => {
-            return (
-              <CardSingle
-                cardsDeckRef={cardsDeck}
-                key={index}
-                card={card}
-                getData={getData}
-              />
-            );
-          })}
+          cards
+            .map((card: ICard, index) => {
+              return (
+                <CardSingle
+                  cardsDeckRef={cardsDeck}
+                  key={index}
+                  card={card}
+                  getData={getData}
+                />
+              );
+            })
+            .filter(
+              (_, index) =>
+                index >= (currentPage - 1) * 9 && index < currentPage * 9,
+            )}
         {cards.length === 0 && !loading && (
           <h1 className={Styles.noCards}>No cards were found!!!</h1>
         )}
@@ -64,6 +74,13 @@ const CardsDeck = (props: CardsDeckProps) => {
           </div>
         )}
         {cards.length < 4 && <div className={Styles.emptyDiv}></div>}
+      </Flex>
+      <Flex className={Styles.Pagination}>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={100}
+          onPageChange={onPageChange}
+        />
       </Flex>
       <FormModal
         isOpen={showAddCard}

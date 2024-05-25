@@ -13,13 +13,15 @@ import { toast } from "react-toastify";
 import { AuthLevels } from "../../data/enums/AuthLevels.enum";
 
 // *** custom hook for cards *** //
-const useCards = (cardsDeck?: MutableRefObject<ICard[]>, reRender?:boolean) => {
+const useCards = (cardsDeck?: MutableRefObject<ICard[]>, reRender?: boolean) => {
     const [cards, setCards] = useState<ICard[]>([]);
+    const [currentPage, setCurrentPage] = useState(1);
+
     const { sendApiRequest, loading } = useAPI();
     const currPage = useLocation().pathname.split("/")[1];
-    const getCardsDeck = useMemo(() => cardsDeck, [cardsDeck? cardsDeck.current : []]);
+    const getCardsDeck = useMemo(() => cardsDeck, [cardsDeck ? cardsDeck.current : []]);
     const nav = useNavigate();
-    
+
     //** Redux **//
     const search = useSelector(
         (state: IRootState) => state.SearchSlice.search,
@@ -32,7 +34,7 @@ const useCards = (cardsDeck?: MutableRefObject<ICard[]>, reRender?:boolean) => {
     const getData = useCallback(async () => {
         const data = await sendApiRequest(paths.cards, HttpMethods.GET);
 
-        if (data === null) return ;
+        if (data === null) return;
         let filtered = data.filter(
             (card: ICard) =>
                 card.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -74,7 +76,7 @@ const useCards = (cardsDeck?: MutableRefObject<ICard[]>, reRender?:boolean) => {
         }
     };
 
-    const updateCard = async (card: ICard) => {        
+    const updateCard = async (card: ICard) => {
         const res = await sendApiRequest(
             `${paths.cards}/${card._id}`,
             HttpMethods.PUT,
@@ -87,18 +89,23 @@ const useCards = (cardsDeck?: MutableRefObject<ICard[]>, reRender?:boolean) => {
         }
     };
 
+    const onPageChange = (page: number) => setCurrentPage(page);
+
+
     //** Variables **//
     const canShowPlusIcon =
         currPage !== "favourites" && auth.authLevel >= AuthLevels.Biz;
 
     //** Effects **//
     useEffect(() => {
-        if (!reRender) return ;
-        (async ()=>{loadCards();})();
-        return () => setCards([]);
+        if (!reRender) return;
+        (async () => { loadCards(); })();
+        return () => {
+            setCards([]);
+        };
     }, [loadCards, getCardsDeck!.current]);
 
-    return { cards, addCard, canShowPlusIcon, loadCards, loading, getData, deleteCard, updateCard };
+    return { cards, addCard, canShowPlusIcon, loadCards, loading, getData, deleteCard, updateCard, currentPage, onPageChange };
 }
 
 export default useCards;
