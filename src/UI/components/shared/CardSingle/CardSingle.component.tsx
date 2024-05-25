@@ -7,8 +7,7 @@ import {
   PiTrash,
   PiHeartFill,
 } from "react-icons/pi";
-import { ICard } from "../../../../data/types/ICard";
-import { MutableRefObject, SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { IAuthState } from "../../../../data/types/IAuthState";
 import { IRootState } from "../../../../data/types/IRootState";
@@ -25,12 +24,7 @@ import { useNavigate } from "react-router-dom";
 import FormModal from "../../../modals/FormModal/Form.modal";
 import EditCardForm from "../../forms/EditCard/EditCard.form";
 import useWindow from "../../../../core/hooks/useWindow";
-
-export type CardSingleProps = {
-  card: ICard;
-  getData: () => void;
-  cardsDeckRef: MutableRefObject<ICard[]>;
-};
+import { CardSingleProps } from "./CardSingle.props";
 
 //** CardSingle Component **//
 const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
