@@ -77,6 +77,7 @@ const CardsDeck = (props: CardsDeckProps) => {
       </Flex>
       <Flex className={Styles.Pagination}>
         <Pagination
+          layout="navigation"
           currentPage={currentPage}
           totalPages={100}
           onPageChange={onPageChange}
