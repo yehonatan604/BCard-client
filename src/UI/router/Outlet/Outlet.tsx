@@ -61,6 +61,17 @@ const Outlet = ({ className }: OutletProps) => {
             </RouteGuard>
           }
         />
+        <Route
+          path="/crm"
+          element={
+            <RouteGuard
+              authLevel={auth.authLevel}
+              minimumLevel={AuthLevels.Admin}
+            >
+              <MyCards />
+            </RouteGuard>
+          }
+        />
         <Route path="/*" element={<Error />} />
       </Routes>
     </div>

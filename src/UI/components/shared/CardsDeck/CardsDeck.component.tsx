@@ -20,7 +20,7 @@ const CardsDeck = (props: CardsDeckProps) => {
   //** State **//
   const [showAddCard, setShowAddCard] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isMobile] = useWindow();
+  const { isMobile } = useWindow();
 
   //** Hooks **//
   let cardsDeck = useRef<ICard[]>([]);

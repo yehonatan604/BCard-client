@@ -1,6 +1,6 @@
 //** Dependencies **//
 import { useLocation } from "react-router-dom";
-import { useEffect, useState, MouseEvent, SyntheticEvent } from "react";
+import { useEffect, useState, SyntheticEvent } from "react";
 import useAPI from "../../../core/hooks/useAPI";
 import { HttpMethods } from "../../../data/enums/HttpMethods.enum";
 import { ICard } from "../../../data/types/ICard";
@@ -10,26 +10,20 @@ import { FlexDirs } from "../../../data/enums/FlexDirs.enum";
 import { FlexTypes } from "../../../data/enums/FlexTypes.enum";
 import Styles from "./Biz.style";
 import noPic from "../../../assets/noPic.png";
+import useWindow from "../../../core/hooks/useWindow";
 
 //** Biz Page **//
 const Biz = () => {
-  const { VITE_GOOGLE_MAPS_API_KEY: KEY } = import.meta.env;
-
   //** State **//
   const [card, setCard] = useState<ICard | null>(null);
 
   //** Hooks **//
   const id = useLocation().pathname.split("/")[2];
   const { sendApiRequest } = useAPI();
+  const { open } = useWindow("about");
 
-  //** Functions **//
-  const open = (e: MouseEvent<HTMLParagraphElement>) => {
-    const id = e.currentTarget.id;
-    const target = e.currentTarget.textContent;
-    id === "web"
-      ? window.open(`${target}`, "_blank")
-      : window.open(`${id}:${target}`);
-  };
+  //** Variables **//
+  const { VITE_GOOGLE_MAPS_API_KEY: KEY } = import.meta.env;
 
   //** Effects **//
   useEffect(() => {
@@ -92,7 +86,7 @@ const Biz = () => {
           </p>
           <p className={Styles.paragraph}>
             Website:{" "}
-            <span id="web" className={Styles.link} onClick={open}>
+            <span id={card.web} className={Styles.link} onClick={open}>
               {card.web}
             </span>
           </p>

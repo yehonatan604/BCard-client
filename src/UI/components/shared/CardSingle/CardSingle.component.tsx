@@ -39,7 +39,7 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
   const [showEditModal, setShowEditModal] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [iconsSize, setIconsSize] = useState<number>(20);
-  const [isMobile] = useWindow();
+  const { isMobile } = useWindow();
 
   //** Hooks **//
   const { sendApiRequest } = useAPI();
