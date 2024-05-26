@@ -8,7 +8,7 @@ import { IUser } from "../../../data/types/IUser";
 import Flex from "../../components/shared/Flex/Flex.component";
 import { FlexDirs } from "../../../data/enums/FlexDirs.enum";
 import { FlexTypes } from "../../../data/enums/FlexTypes.enum";
-import Styles from "./Profile.style";
+import Styles from "../../components/shared/MoreDetails/MoreDetails.style";
 import { Button } from "flowbite-react";
 import FormModal from "../../modals/FormModal/Form.modal";
 import EditProfileForm from "../../components/forms/EditProfile/EditProfile.form";

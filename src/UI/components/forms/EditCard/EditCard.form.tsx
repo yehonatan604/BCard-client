@@ -7,7 +7,7 @@ import Joi from "joi";
 import Flex from "../../shared/Flex/Flex.component";
 import { FlexTypes } from "../../../../data/enums/FlexTypes.enum";
 import { addCardInitialForm } from "../../../../data/constants/initialForms";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { addCardFormInputs } from "../../../../data/constants/formInputs";
 import { FlexDirs } from "../../../../data/enums/FlexDirs.enum";
 import { EditCardFormProps } from "./EditCard.props";
@@ -18,7 +18,10 @@ import { deNormalizeCard } from "../../../../core/helpers/Form.helper";
 //** EditCardForm Component **//
 const EditCardForm = (props: EditCardFormProps) => {
   //** Props **//
-  const { setIsLoading, setIsOpen, cardsDeckRef, card } = props;
+  const { setIsLoading, setIsOpen, cardsDeckRef, card, setSelected } = props;
+
+  //** State **//
+  const [isTouched, setIsTouched] = useState<boolean>(false);
 
   //** Hooks **//
   const containerRef = useRef<HTMLDivElement>(null);
@@ -35,6 +38,7 @@ const EditCardForm = (props: EditCardFormProps) => {
     setIsLoading(true);
     await updateCard({ ...(form as ICard), _id: card._id }).then(async () => {
       setIsOpen(false);
+      setSelected && setSelected(null);
       await loadCards();
     });
     setIsLoading(false);
@@ -43,9 +47,12 @@ const EditCardForm = (props: EditCardFormProps) => {
   //** Effects **//
   useEffect(() => {
     setIsLoading(loading);
-    document.getElementById("container")!.scrollIntoView();
-    setForm(deNormalizeCard(form && form, card && card));
-  }, []);
+    if (chechErrors()) document.getElementById("container")!.scrollIntoView();
+    if (!isTouched) {
+      setForm(deNormalizeCard(form, card));
+      setIsTouched(true);
+    }
+  }, [form]);
 
   const getdefaultValue = (key: string) => {
     if (
@@ -114,7 +121,10 @@ const EditCardForm = (props: EditCardFormProps) => {
                         type={input.type}
                         variant="filled"
                         label={input.label}
-                        onInput={(e: any) => updateForm(e)}
+                        onChange={(e: any) => {
+                          updateForm(e);
+                          setForm(deNormalizeCard(form, card));
+                        }}
                         onBlur={updateForm}
                         autoFocus
                         helperText={

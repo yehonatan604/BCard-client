@@ -22,7 +22,7 @@ const styles: Record<string, Style> = {
     emptyDiv: new Style({
         all: `h-[50vh] w-full`,
     }),
-    Pagination: new Style({
+    pagination: new Style({
         all: `mb-6`,
     }),
     plusIcon: new Style({

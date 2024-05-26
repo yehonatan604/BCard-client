@@ -5,6 +5,7 @@ export type EditCardFormProps = {
     setIsLoading: (value: boolean) => void;
     setIsOpen: (value: boolean) => void;
     loadCards: () => Promise<void>;
-    cardsDeckRef: MutableRefObject<ICard[]>; 
+    cardsDeckRef: MutableRefObject<ICard[]>;
     card: ICard;
+    setSelected?: (selected: ICard | null) => void;
 }

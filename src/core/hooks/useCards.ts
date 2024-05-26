@@ -15,7 +15,6 @@ import { AuthLevels } from "../../data/enums/AuthLevels.enum";
 // *** custom hook for cards *** //
 const useCards = (cardsDeck?: MutableRefObject<ICard[]>, reRender?: boolean) => {
     const [cards, setCards] = useState<ICard[]>([]);
-    const [currentPage, setCurrentPage] = useState(1);
 
     const { sendApiRequest, loading } = useAPI();
     const currPage = useLocation().pathname.split("/")[1];
@@ -89,9 +88,6 @@ const useCards = (cardsDeck?: MutableRefObject<ICard[]>, reRender?: boolean) => 
         }
     };
 
-    const onPageChange = (page: number) => setCurrentPage(page);
-
-
     //** Variables **//
     const canShowPlusIcon =
         currPage !== "favourites" && auth.authLevel >= AuthLevels.Biz;
@@ -105,7 +101,7 @@ const useCards = (cardsDeck?: MutableRefObject<ICard[]>, reRender?: boolean) => 
         };
     }, [loadCards, getCardsDeck!.current]);
 
-    return { cards, addCard, canShowPlusIcon, loadCards, loading, getData, deleteCard, updateCard, currentPage, onPageChange };
+    return { cards, addCard, canShowPlusIcon, loadCards, loading, getData, deleteCard, updateCard };
 }
 
 export default useCards;

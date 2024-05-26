@@ -1,12 +1,12 @@
 //** Dependencies **//
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { authActions } from "../store/AuthSlice";
 import { paths } from "../../data/constants/paths";
 import useAPI from "./useAPI";
 import { HttpMethods } from "../../data/enums/HttpMethods.enum";
-import { removeToken, setToken } from "../helpers/Storage.helper";
+import { getToken, removeToken, setToken } from "../helpers/Storage.helper";
 import { decode } from "../helpers/Decoder.helper";
 import { IToken } from "../../data/types/IToken";
 import { getAuthLevel } from "../helpers/AuthLevel.helper";
@@ -16,6 +16,7 @@ import { IUser } from "../../data/types/IUser";
 const useAuth = () => {
     const dispatch = useDispatch();
     const { data, error, loading, sendApiRequest } = useAPI();
+    const [users, setUsers] = useState<IUser[]>([]);
 
     // Login
     const login = useCallback(async (token: string) => {
@@ -51,6 +52,7 @@ const useAuth = () => {
         return await sendApiRequest(`${paths.users}/${id}`, HttpMethods.GET);
     }, [sendApiRequest]);
 
+    // Update user
     const updateUser = useCallback(async (user: any) => {
         const id = (decode(localStorage.getItem('token')!) as any)._id;
         const res = await sendApiRequest(`${paths.users}/${id}`, HttpMethods.PUT, user);
@@ -58,7 +60,33 @@ const useAuth = () => {
         return res;
     }, [sendApiRequest]);
 
-    return { loading, error, data, login, tryLogin, logout, register, getUserById, updateUser };
+    // Patch user business status
+    const patchUserBizStatus = useCallback(async (id: string) => {
+        const res = await sendApiRequest(`${paths.users}/${id}`, HttpMethods.PATCH);
+        toast("User's status updated successfully", { type: "success" });
+        return res;
+    }, [sendApiRequest]);
+
+    //Get all users
+    const getAllUsers = useCallback(async () => {
+        const decodedToken = decode(getToken()) as unknown as IToken;
+        const authLevel = getAuthLevel(decodedToken);
+        if (authLevel !== 3) return toast("Unauthorized", { type: "error" });
+        const res = await sendApiRequest(`${paths.users}`, HttpMethods.GET);
+        setUsers(res);
+    }, [sendApiRequest]);
+
+    //Delete user
+    const deleteUser = useCallback(async (id: string) => {
+        const res = await sendApiRequest(`${paths.users}/${id}`, HttpMethods.DELETE);
+        toast("User deleted successfully", { type: "success" });
+        return res;
+    }, [sendApiRequest]);
+
+    return {
+        loading, error, data, login, tryLogin, logout, register,
+        getUserById, updateUser, getAllUsers, users, patchUserBizStatus, deleteUser
+    };
 }
 
 export default useAuth;

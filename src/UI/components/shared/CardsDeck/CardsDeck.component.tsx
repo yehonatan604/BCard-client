@@ -11,6 +11,7 @@ import FormModal from "../../../modals/FormModal/Form.modal";
 import AddCardForm from "../../forms/AddCard/AddCard.form";
 import useCards from "../../../../core/hooks/useCards";
 import useWindow from "../../../../core/hooks/useWindow";
+import usePagination from "../../../../core/hooks/usePagination";
 
 //** CardsDeck Component **//
 const CardsDeck = (props: CardsDeckProps) => {
@@ -25,15 +26,11 @@ const CardsDeck = (props: CardsDeckProps) => {
   //** Hooks **//
   let cardsDeck = useRef<ICard[]>([]);
   const { mode } = useThemeMode();
-  const {
-    cards,
-    loading,
-    canShowPlusIcon,
-    getData,
-    loadCards,
-    currentPage,
-    onPageChange,
-  } = useCards(cardsDeck, true);
+  const { cards, loading, canShowPlusIcon, getData, loadCards } = useCards(
+    cardsDeck,
+    true,
+  );
+  const { currentPage, onPageChange } = usePagination();
 
   //** JSX **//
   return (
@@ -77,7 +74,7 @@ const CardsDeck = (props: CardsDeckProps) => {
         )}
         {cards.length < 4 && <div className={Styles.emptyDiv}></div>}
       </Flex>
-      <Flex className={Styles.Pagination}>
+      <Flex className={Styles.pagination}>
         <Pagination
           layout={isMobile ? "navigation" : "pagination"}
           currentPage={currentPage}

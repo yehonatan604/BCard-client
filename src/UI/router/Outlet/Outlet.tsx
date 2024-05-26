@@ -13,6 +13,7 @@ import MyCards from "../../pages/MyCards/MyCards.page";
 import Biz from "../../pages/Biz/Biz.page";
 import Profile from "../../pages/Profile/Profile.page";
 import { OutletProps } from "./Outlet.props";
+import CRM from "../../pages/CRM/CRM.page";
 
 //** AppRoutes Component **//
 const Outlet = ({ className }: OutletProps) => {
@@ -68,7 +69,7 @@ const Outlet = ({ className }: OutletProps) => {
               authLevel={auth.authLevel}
               minimumLevel={AuthLevels.Admin}
             >
-              <MyCards />
+              <CRM />
             </RouteGuard>
           }
         />

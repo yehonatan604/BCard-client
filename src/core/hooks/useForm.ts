@@ -7,8 +7,8 @@ import Joi from "joi";
 // *** custom hook for forms *** //
 const useForm = (initialState: Record<string, any>, schema: Joi.ObjectSchema) => {
     //** State **//
-    const [errors, setErrors] = useState({ ...initialState });
-    const [form, setForm] = useState({ ...initialState });
+    const [errors, setErrors] = useState(initialState);
+    const [form, setForm] = useState(initialState);
 
     //** Functions **//
     const chechErrors = () => {
