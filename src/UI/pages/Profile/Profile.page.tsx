@@ -8,7 +8,7 @@ import { IUser } from "../../../data/types/IUser";
 import Flex from "../../components/shared/Flex/Flex.component";
 import { FlexDirs } from "../../../data/enums/FlexDirs.enum";
 import { FlexTypes } from "../../../data/enums/FlexTypes.enum";
-import Styles from "../../components/shared/MoreDetails/MoreDetails.style";
+import Styles from "./Profile.style";
 import { Button } from "flowbite-react";
 import FormModal from "../../modals/FormModal/Form.modal";
 import EditProfileForm from "../../components/forms/EditProfile/EditProfile.form";
@@ -100,13 +100,15 @@ const Profile = () => {
                 />
               )}
             </div>
-            <Button
-              gradientMonochrome={"info"}
-              className={Styles.btn}
-              onClick={onEdit}
-            >
-              Edit
-            </Button>
+            <Flex className="mt-4 h-[20vh] w-full">
+              <Button
+                gradientMonochrome={"info"}
+                className={Styles.btn}
+                onClick={onEdit}
+              >
+                Edit
+              </Button>
+            </Flex>
           </Flex>
         )}
       </Flex>
