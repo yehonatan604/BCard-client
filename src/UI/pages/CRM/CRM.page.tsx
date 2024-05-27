@@ -78,18 +78,9 @@ const CRM = () => {
             loadCards={loadCards}
             dataType={currTable}
             getAllUsers={getAllUsers}
-            data={cards
-              .filter((card) => {
-                return (
-                  card.title.toLowerCase().includes(search.toLowerCase()) ||
-                  card.subtitle.toLowerCase().includes(search.toLowerCase())
-                );
-              })
-              .filter((_, index) => {
-                return (
-                  index >= currentPage * 5 && index < (currentPage + 1) * 5
-                );
-              })}
+            data={cards.filter((_, index) => {
+              return index >= currentPage * 5 && index < (currentPage + 1) * 5;
+            })}
           />
         ) : (
           <Table

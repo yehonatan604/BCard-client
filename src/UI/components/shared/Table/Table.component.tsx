@@ -27,7 +27,7 @@ const Table = (props: TableProps) => {
 
   //** JSX **//
   return (
-    <>
+    <div>
       <div className={Styles.container}>
         <FbTable hoverable striped>
           <FbTable.Body className={Styles.tBody}>
@@ -61,7 +61,7 @@ const Table = (props: TableProps) => {
           dataType={dataType}
         />
       )}
-    </>
+    </div>
   );
 };
 
