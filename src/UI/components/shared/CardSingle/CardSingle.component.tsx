@@ -106,11 +106,9 @@ const CardSingle = ({ card, getData, cardsDeckRef }: CardSingleProps) => {
             src={card.image.url}
             alt={card.image.alt}
             className={Styles.cardImg}
+            // If image fails to load, set it to a default image
             onError={(e: SyntheticEvent<HTMLImageElement, Event>) => {
               e.currentTarget.src = noPic;
-              e.currentTarget.onerror = null;
-            }}
-            onLoad={(e: SyntheticEvent<HTMLImageElement, Event>) => {
               e.currentTarget.onerror = null;
             }}
             onClick={navToBiz}
