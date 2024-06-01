@@ -22,8 +22,7 @@ const RouteGuard = (props: RouteGuardProps) => {
     </Flex>
   );
 
-  return authLevel >= minimumLevel ? <>{children}</> : content;
+  return authLevel >= minimumLevel ? { children } : content;
 };
 
 export default RouteGuard;
-// Path: tshirt-client/src/UI/router/RouteGuard.tsx
