@@ -22,7 +22,7 @@ const RouteGuard = (props: RouteGuardProps) => {
     </Flex>
   );
 
-  return authLevel >= minimumLevel ? { children } : content;
+  return authLevel >= minimumLevel ? <>{children}</> : content;
 };
 
 export default RouteGuard;
